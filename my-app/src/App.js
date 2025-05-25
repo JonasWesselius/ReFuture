@@ -7,6 +7,7 @@ import Jobs from "./pages/jobs";
 import Guide from "./pages/guide";
 import Tests from "./pages/test";
 import Navbar from "./components/Navbar";
+import Profile from "./pages/profile";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/guide" element={<Guide />} />
           <Route path="/tests" element={<Tests />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <Navbar />
     </Router>
