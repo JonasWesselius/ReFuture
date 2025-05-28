@@ -7,32 +7,22 @@ import CreateCV from "./pages/createCV";
 import Jobs from "./pages/jobs";
 import Guide from "./pages/guide";
 import Tests from "./pages/tests";
-import Navbar from "./components/navbar;
+import Navbar from "./components/navbar";
 
-function Home() {
-  return (
-    <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cv" element={<CV />} />
-          <Route path="/create-cv" element={<CreateCV />} />
-          <Route path="/jobs" element={<Jobs />} />
-          <Route path="/guide" element={<Guide />} />
-          <Route path="/tests" element={<Tests />} />
-        </Routes>
-        <Navbar />
-    </Router>
-  );
-}
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/guide" element={<Guide />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/cv" element={<CV />} />
+      <Route path="/create-cv" element={<CreateCV />} />
+      <Route path="/jobs" element={<Jobs />} />
+      <Route path="/guide" element={<Guide />} />
+      <Route path="/tests" element={<Tests />} />
+    </Routes>
+    <Navbar />
+</Router>
   );
 }
 
