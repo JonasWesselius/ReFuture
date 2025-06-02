@@ -1,0 +1,36 @@
+.auth-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.login-btn {
+  background-color: #A6EBC9;
+  color: black;
+  border: none;
+  padding: 10px 24px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.signup-btn {
+  background-color: transparent;
+  color: #A6EBC9;
+  border: 2px solid #A6EBC9;
+  padding: 10px 24px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: #8fdcb3;
+}
+
+.signup-btn:hover {
+  background-color: #A6EBC9;
+  color: black;
+}
