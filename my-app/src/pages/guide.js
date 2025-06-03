@@ -1,7 +1,7 @@
 // src/pages/guide.js
 import React, { useState, useEffect } from 'react';
 import ProgressGuide from './progressguide';
-import GuideCard from '../pages/guidecard';
+import GuideCard from './guidecard';
 
 const Guide = () => {
   const defaultCards = [
