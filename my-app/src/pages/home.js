@@ -1,6 +1,8 @@
 import React from 'react';
+
 import AuthButtons from '../components/AuthButtons';
 import './home.css';
+
 
 function Home() {
   return (

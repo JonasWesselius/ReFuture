@@ -72,17 +72,15 @@ function CreateCV() {
       // Create a URL for the PDF blob
       const pdfUrl = URL.createObjectURL(pdfBlob);
       
-      // Create a new CV object
+
+      // Create a new CV object with a more unique ID
       const newCV = {
-        id: Date.now(),
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         title: `${formData.fullName}'s CV`,
         createdDate: new Date().toLocaleDateString(),
         pdfUrl,
         templateId: formData.selectedTemplate
       };
-
-      // Here you would typically save the CV to your backend
-      // For now, we'll just navigate back to the CV page
       navigate('/cv', { state: { newCV } });
     } catch (error) {
       console.error('Error generating PDF:', error);
