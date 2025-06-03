@@ -5,6 +5,7 @@ import './cv.css';
 function CV() {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [cvs, setCVs] = useState(() => {
     // Load CVs from localStorage on initial render
     const savedCVs = localStorage.getItem('cvs');
@@ -20,6 +21,7 @@ function CV() {
   useEffect(() => {
     // Check if we have a new CV from the create page
     if (location.state?.newCV) {
+
       setCVs(prev => {
         // Check if CV with this ID already exists
         const exists = prev.some(cv => cv.id === location.state.newCV.id);
@@ -106,7 +108,9 @@ function CV() {
       </div>
       
       <div className="cv-grid">
+
         {sortedCVs.length === 0 ? (
+
           <div className="no-cvs">
             <p>You haven't created any CVs yet.</p>
             <p>Click the "Create New CV" button to get started!</p>
@@ -152,6 +156,7 @@ function CV() {
                   <span className="cv-number">#{sortedCVs.length - index}</span>
                 </div>
                 <p>Created: {cv.createdDate}</p>
+
               </div>
             </div>
           ))

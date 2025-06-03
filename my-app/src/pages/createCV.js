@@ -72,6 +72,7 @@ function CreateCV() {
       // Create a URL for the PDF blob
       const pdfUrl = URL.createObjectURL(pdfBlob);
       
+
       // Create a new CV object with a more unique ID
       const newCV = {
         id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -80,8 +81,6 @@ function CreateCV() {
         pdfUrl,
         templateId: formData.selectedTemplate
       };
-
-      // Navigate back to CV page with the new CV
       navigate('/cv', { state: { newCV } });
     } catch (error) {
       console.error('Error generating PDF:', error);

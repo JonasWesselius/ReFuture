@@ -59,6 +59,7 @@
     transition: transform 0.2s;
     background-color: white;
     position: relative;
+
   }
   
   .cv-card:hover {

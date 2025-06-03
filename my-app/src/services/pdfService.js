@@ -103,7 +103,7 @@ const generateCreative = async (doc, formData) => {
   doc.setFillColor(41, 128, 185);
   doc.rect(0, 0, 210, 40, 'F');
   
-  // Name in white
+
   doc.setFontSize(24);
   doc.setTextColor(255, 255, 255);
   doc.text(formData.fullName, 20, 25);
@@ -238,10 +238,11 @@ const generateMinimalist = async (doc, formData) => {
 
 const generateTraditional = async (doc, formData) => {
   // Name
+
   doc.setFontSize(22);
   doc.setTextColor(0, 0, 0);
   doc.text(formData.fullName, 20, 25);
-  
+
   // Contact Information
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
@@ -301,4 +302,5 @@ const generateTraditional = async (doc, formData) => {
     const languagesLines = doc.splitTextToSize(formData.languages, 170);
     doc.text(languagesLines, 20, 145 + educationHeight + experienceHeight + skillsHeight);
   }
+
 }; 
