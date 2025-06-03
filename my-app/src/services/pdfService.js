@@ -40,75 +40,265 @@ const generateModernProfessional = async (doc, formData) => {
   // Contact Information
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
-  doc.text([
+  const contactInfo = [
     formData.email,
     formData.phone,
     formData.address
-  ], 20, 30);
+  ].filter(Boolean); // Remove empty values
+  doc.text(contactInfo, 20, 30);
   
   // Education
-  doc.setFontSize(16);
-  doc.setTextColor(0, 0, 0);
-  doc.text('Education', 20, 50);
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(formData.education, 20, 60);
+  if (formData.education) {
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Education', 20, 50);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const educationLines = doc.splitTextToSize(formData.education, 170);
+    doc.text(educationLines, 20, 60);
+  }
   
   // Work Experience
-  doc.setFontSize(16);
-  doc.setTextColor(0, 0, 0);
-  doc.text('Work Experience', 20, 90);
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(formData.workExperience, 20, 100);
+  if (formData.workExperience) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Work Experience', 20, 70 + educationHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const experienceLines = doc.splitTextToSize(formData.workExperience, 170);
+    doc.text(experienceLines, 20, 80 + educationHeight);
+  }
   
   // Skills
-  doc.setFontSize(16);
-  doc.setTextColor(0, 0, 0);
-  doc.text('Skills', 20, 130);
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(formData.skills, 20, 140);
+  if (formData.skills) {
+    const previousHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Skills', 20, 100 + previousHeight + experienceHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const skillsLines = doc.splitTextToSize(formData.skills, 170);
+    doc.text(skillsLines, 20, 110 + previousHeight + experienceHeight);
+  }
   
   // Languages
-  doc.setFontSize(16);
-  doc.setTextColor(0, 0, 0);
-  doc.text('Languages', 20, 170);
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(formData.languages, 20, 180);
+  if (formData.languages) {
+    const previousHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
+    const skillsHeight = formData.skills ? doc.getTextDimensions(formData.skills).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Languages', 20, 130 + previousHeight + experienceHeight + skillsHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const languagesLines = doc.splitTextToSize(formData.languages, 170);
+    doc.text(languagesLines, 20, 140 + previousHeight + experienceHeight + skillsHeight);
+  }
 };
 
 const generateCreative = async (doc, formData) => {
-  // Similar structure but with different styling
-  // Add creative elements and colors
+  // Header with colored background
   doc.setFillColor(41, 128, 185);
   doc.rect(0, 0, 210, 40, 'F');
   
+  // Name in white
   doc.setFontSize(24);
   doc.setTextColor(255, 255, 255);
   doc.text(formData.fullName, 20, 25);
   
-  // Rest of the content with creative styling
-  // ... (similar structure as Modern Professional but with different styling)
+  // Contact Information
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  const contactInfo = [
+    formData.email,
+    formData.phone,
+    formData.address
+  ].filter(Boolean);
+  doc.text(contactInfo, 20, 45);
+  
+  // Education
+  if (formData.education) {
+    doc.setFontSize(16);
+    doc.setTextColor(41, 128, 185);
+    doc.text('Education', 20, 65);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const educationLines = doc.splitTextToSize(formData.education, 170);
+    doc.text(educationLines, 20, 75);
+  }
+  
+  // Work Experience
+  if (formData.workExperience) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(41, 128, 185);
+    doc.text('Work Experience', 20, 85 + educationHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const experienceLines = doc.splitTextToSize(formData.workExperience, 170);
+    doc.text(experienceLines, 20, 95 + educationHeight);
+  }
+  
+  // Skills
+  if (formData.skills) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(41, 128, 185);
+    doc.text('Skills', 20, 115 + educationHeight + experienceHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const skillsLines = doc.splitTextToSize(formData.skills, 170);
+    doc.text(skillsLines, 20, 125 + educationHeight + experienceHeight);
+  }
+  
+  // Languages
+  if (formData.languages) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
+    const skillsHeight = formData.skills ? doc.getTextDimensions(formData.skills).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(41, 128, 185);
+    doc.text('Languages', 20, 145 + educationHeight + experienceHeight + skillsHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const languagesLines = doc.splitTextToSize(formData.languages, 170);
+    doc.text(languagesLines, 20, 155 + educationHeight + experienceHeight + skillsHeight);
+  }
 };
 
 const generateMinimalist = async (doc, formData) => {
-  // Minimalist design with lots of whitespace
+  // Name
   doc.setFontSize(20);
   doc.setTextColor(0, 0, 0);
   doc.text(formData.fullName, 20, 30);
   
-  // Rest of the content with minimalist styling
-  // ... (similar structure as Modern Professional but with minimalist styling)
+  // Contact Information
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  const contactInfo = [
+    formData.email,
+    formData.phone,
+    formData.address
+  ].filter(Boolean);
+  doc.text(contactInfo, 20, 40);
+  
+  // Education
+  if (formData.education) {
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Education', 20, 60);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const educationLines = doc.splitTextToSize(formData.education, 170);
+    doc.text(educationLines, 20, 70);
+  }
+  
+  // Work Experience
+  if (formData.workExperience) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Work Experience', 20, 80 + educationHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const experienceLines = doc.splitTextToSize(formData.workExperience, 170);
+    doc.text(experienceLines, 20, 90 + educationHeight);
+  }
+  
+  // Skills
+  if (formData.skills) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Skills', 20, 110 + educationHeight + experienceHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const skillsLines = doc.splitTextToSize(formData.skills, 170);
+    doc.text(skillsLines, 20, 120 + educationHeight + experienceHeight);
+  }
+  
+  // Languages
+  if (formData.languages) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
+    const skillsHeight = formData.skills ? doc.getTextDimensions(formData.skills).h + 20 : 0;
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Languages', 20, 140 + educationHeight + experienceHeight + skillsHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const languagesLines = doc.splitTextToSize(formData.languages, 170);
+    doc.text(languagesLines, 20, 150 + educationHeight + experienceHeight + skillsHeight);
+  }
 };
 
 const generateTraditional = async (doc, formData) => {
-  // Traditional design with classic formatting
+  // Name
   doc.setFontSize(22);
   doc.setTextColor(0, 0, 0);
   doc.text(formData.fullName, 20, 25);
   
-  // Rest of the content with traditional styling
-  // ... (similar structure as Modern Professional but with traditional styling)
+  // Contact Information
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  const contactInfo = [
+    formData.email,
+    formData.phone,
+    formData.address
+  ].filter(Boolean);
+  doc.text(contactInfo, 20, 35);
+  
+  // Education
+  if (formData.education) {
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Education', 20, 55);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const educationLines = doc.splitTextToSize(formData.education, 170);
+    doc.text(educationLines, 20, 65);
+  }
+  
+  // Work Experience
+  if (formData.workExperience) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Work Experience', 20, 75 + educationHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const experienceLines = doc.splitTextToSize(formData.workExperience, 170);
+    doc.text(experienceLines, 20, 85 + educationHeight);
+  }
+  
+  // Skills
+  if (formData.skills) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Skills', 20, 105 + educationHeight + experienceHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const skillsLines = doc.splitTextToSize(formData.skills, 170);
+    doc.text(skillsLines, 20, 115 + educationHeight + experienceHeight);
+  }
+  
+  // Languages
+  if (formData.languages) {
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
+    const skillsHeight = formData.skills ? doc.getTextDimensions(formData.skills).h + 20 : 0;
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Languages', 20, 135 + educationHeight + experienceHeight + skillsHeight);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const languagesLines = doc.splitTextToSize(formData.languages, 170);
+    doc.text(languagesLines, 20, 145 + educationHeight + experienceHeight + skillsHeight);
+  }
 }; 
