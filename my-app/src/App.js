@@ -10,23 +10,26 @@ import Tests from "./pages/tests";
 import Navbar from "./components/navbar";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-
+import Background from "./components/Background";
+import LogoHeader from './components/LogoHeader';
 
 function App() {
   return (
     <Router>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/cv" element={<CV />} />
-      <Route path="/create-cv" element={<CreateCV />} />
-      <Route path="/jobs" element={<Jobs />} />
-      <Route path="/guide" element={<Guide />} />
-      <Route path="/tests" element={<Tests />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-    </Routes>
-    <Navbar />
-</Router>
+      <Background />
+      <LogoHeader />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cv" element={<CV />} />
+        <Route path="/create-cv" element={<CreateCV />} />
+        <Route path="/jobs" element={<Jobs />} />
+        <Route path="/guide" element={<Guide />} />
+        <Route path="/tests" element={<Tests />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+      <Navbar />
+    </Router>
   );
 }
 
