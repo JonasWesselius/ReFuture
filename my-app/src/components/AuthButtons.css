@@ -1,5 +1,4 @@
 .auth-buttons {
-  margin-top: 20px;
   display: flex;
   gap: 10px;
 }
@@ -33,4 +32,28 @@
 .signup-btn:hover {
   background-color: #A6EBC9;
   color: black;
+}
+
+@media (max-width: 480px) {
+  .auth-buttons {
+    gap: 8px;
+  }
+  .login-btn, .signup-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .logged-in-status {
+    gap: 6px; 
+  }
+
+  .logged-in-text {
+    font-size: 0.9rem; 
+  }
+
+  .auth-logout-btn {
+    padding: 6px 12px; 
+    font-size: 14px; 
+    margin-left: 0; 
+  }
 }
