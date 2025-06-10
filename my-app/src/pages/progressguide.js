@@ -1,6 +1,5 @@
-// src/components/ProgressGuide.js
 import React from 'react';
-
+import TranslateWidget, { getTranslation } from './translate';
 const ProgressGuide = ({ progress }) => {
   return (
     <div style={styles.container}>

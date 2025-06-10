@@ -2,16 +2,25 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
+import { getTranslation } from '../pages/translate';
 
 function Navbar() {
+  const navItems = [
+    { to: "/", text: "Home" },
+    { to: "/cv", text: "My CV" },
+    { to: "/jobs", text: "Jobs" },
+    { to: "/guide", text: "Guide" },
+    { to: "/tests", text: "Tests" }
+  ];
+
   return (
     <nav className="navbar">
       <ul className="nav-links">
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/cv">My CV</NavLink></li>
-        <li><NavLink to="/jobs">Jobs</NavLink></li>
-        <li><NavLink to="/guide">Guide</NavLink></li>
-        <li><NavLink to="/tests">Tests</NavLink></li>
+        {navItems.map(item => (
+          <li key={item.to}>
+            <NavLink to={item.to}>{getTranslation(item.text)}</NavLink>
+          </li>
+        ))}
       </ul>
     </nav>
   );
