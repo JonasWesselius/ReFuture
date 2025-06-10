@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TranslateWidget, { getTranslation } from './translate';
+import { TranslatedText } from './translate';
 
 const GuideCard = ({ title, status, description, condition, steps, toggleStatus, index }) => {
   const [showModal, setShowModal] = useState(false);
@@ -18,7 +18,7 @@ const GuideCard = ({ title, status, description, condition, steps, toggleStatus,
         backgroundColor: getStatusColor(),
       }}
     >
-      {status}
+      <TranslatedText text={status} />
     </div>
   );
 
@@ -26,39 +26,41 @@ const GuideCard = ({ title, status, description, condition, steps, toggleStatus,
     <>
       <div style={styles.card} onClick={() => setShowModal(true)}>
         <div style={styles.cardHeader}>
-          <h3 style={styles.title}>{getTranslation(title)}</h3>
+          <h3 style={styles.title}><TranslatedText text={title} /></h3>
           <StatusButton onClick={(e) => {
             e.stopPropagation();
             toggleStatus(index);
           }} />
         </div>
-        <p style={styles.description}>{getTranslation(description)}</p>
-        {condition && <p style={styles.condition}>{getTranslation('Condition')}: {getTranslation(condition)}</p>}
+        <p style={styles.description}><TranslatedText text={description} /></p>
+        {condition && <p style={styles.condition}>
+          <TranslatedText text="Condition" />: <TranslatedText text={condition} />
+        </p>}
         <ul style={styles.steps}>
           {steps.map((step, idx) => (
-            <li key={idx}>{getTranslation(step)}</li>
+            <li key={idx}><TranslatedText text={step} /></li>
           ))}
         </ul>
-        <p style={styles.more}>{getTranslation('More')}...</p>
+        <p style={styles.more}><TranslatedText text="More" />...</p>
       </div>
 
       {showModal && (
         <div style={styles.modalOverlay} onClick={() => setShowModal(false)}>
           <div style={styles.modal} onClick={e => e.stopPropagation()}>
             <div style={styles.modalHeader}>
-              <h2 style={styles.modalTitle}>{getTranslation(title)}</h2>
+              <h2 style={styles.modalTitle}><TranslatedText text={title} /></h2>
               <StatusButton onClick={() => toggleStatus(index)} />
             </div>
-            <p>{getTranslation(description)}</p>
-            {condition && <p><strong>{getTranslation('Condition')}:</strong> {getTranslation(condition)}</p>}
-            <h3>{getTranslation('Steps')}:</h3>
+            <p><TranslatedText text={description} /></p>
+            {condition && <p><strong><TranslatedText text="Condition" />:</strong> <TranslatedText text={condition} /></p>}
+            <h3><TranslatedText text="Steps" />:</h3>
             <ul>
               {steps.map((step, idx) => (
-                <li key={idx}>{getTranslation(step)}</li>
+                <li key={idx}><TranslatedText text={step} /></li>
               ))}
             </ul>
             <button style={styles.closeButton} onClick={() => setShowModal(false)}>
-              {getTranslation('Close')}
+              <TranslatedText text="Close" />
             </button>
           </div>
         </div>

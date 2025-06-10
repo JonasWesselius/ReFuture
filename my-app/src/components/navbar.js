@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
-import { getTranslation } from '../pages/translate';
+import { TranslatedText } from '../pages/translate';
 
 function Navbar() {
   const navItems = [
@@ -18,7 +18,9 @@ function Navbar() {
       <ul className="nav-links">
         {navItems.map(item => (
           <li key={item.to}>
-            <NavLink to={item.to}>{getTranslation(item.text)}</NavLink>
+            <NavLink to={item.to}>
+              <TranslatedText text={item.text} />
+            </NavLink>
           </li>
         ))}
       </ul>

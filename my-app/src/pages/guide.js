@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import ProgressGuide from './progressguide';
 import GuideCard from './guidecard';
-import TranslateWidget, { getTranslation } from './translate';
+import TranslateWidget, { TranslatedText } from './translate';
 
 const Guide = () => {
   const defaultCards = [
     {
-      title: getTranslation('Getting a BSN'),
-      status: getTranslation('Done'),
-      description: getTranslation('Starting point'),
+      title: 'Getting a BSN',
+      status: 'Done',
+      description: 'Starting point',
       steps: ['Step 1', 'Step 2', 'Step 3'],
     },
     {
-      title: getTranslation('Getting a Bank Account'),
-      status: getTranslation('In Progress'),
-      description: getTranslation('Required to be able to work'),
+      title: 'Getting a Bank Account',
+      status: 'In Progress',
+      description: 'Required to be able to work',
       condition: 'Must have a BSN',
       steps: ['Step 1', 'Step 2', 'Step 3'],
     },
     {
-      title: getTranslation('Becoming a Statusholder'),
-      status: getTranslation('In Progress'),
+      title: <TranslatedText text="Becoming a Statusholder" />,
+      status: <TranslatedText text="In Progress" />,
       description: '',
       steps: ['Step 1', 'Step 2', 'Step 3'],
     },
@@ -64,9 +64,11 @@ const Guide = () => {
     <>
       <TranslateWidget />
       <div style={styles.page}>
-        <h2 style={styles.header}>{getTranslation('Integration Guide')}</h2>
+        <h2 style={styles.header}>
+          <TranslatedText text="Integration Guide" />
+        </h2>
         <p style={styles.progressText}>
-          {getTranslation('Progress')}: {progress}%
+          <TranslatedText text="Progress" />: {progress}%
         </p>
         <ProgressGuide progress={progress} />
         {cards.map((card, i) => (
