@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -33,6 +34,7 @@ const Navbar = () => {
                 </>
               )}
             </NavLink>
+
           </li>
         ))}
       </ul>
@@ -42,6 +44,7 @@ const Navbar = () => {
 
 const styles = {
   nav: {
+
     position: 'fixed',
     bottom: 0,
     left: 0,
@@ -87,5 +90,6 @@ const styles = {
     fontWeight: 'bold',
   }
 };
+
 
 export default Navbar;
