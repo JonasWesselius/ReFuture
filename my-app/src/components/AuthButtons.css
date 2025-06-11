@@ -1,0 +1,59 @@
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.login-btn {
+  background-color: #A6EBC9;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.signup-btn {
+  background-color: transparent;
+  color: #A6EBC9;
+  border: 2px solid #A6EBC9;
+  padding: 10px 24px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: #8fdcb3;
+}
+
+.signup-btn:hover {
+  background-color: #A6EBC9;
+  color: black;
+}
+
+@media (max-width: 480px) {
+  .auth-buttons {
+    gap: 8px;
+  }
+  .login-btn, .signup-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .logged-in-status {
+    gap: 6px; 
+  }
+
+  .logged-in-text {
+    font-size: 0.9rem; 
+  }
+
+  .auth-logout-btn {
+    padding: 6px 12px; 
+    font-size: 14px; 
+    margin-left: 0; 
+  }
+}
