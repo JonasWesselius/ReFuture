@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-  const [activeItem, setActiveItem] = useState('home');
-
   const navItems = [
-    { id: 'home', label: 'Home', href: '/index', icon: '/homeicon.png', activeIcon: '/homeicon-blue.png' },
-    { id: 'cv', label: 'My CV', href: '/my-cv', icon: '/texticon.png', activeIcon: '/texticon-blue.png' },
-    { id: 'jobs', label: 'Jobs', href: '/jobs', icon: '/briefcaseicon.png', activeIcon: '/briefcaseicon-blue.png' },
-    { id: 'guide', label: 'Guide', href: '/guide', icon: '/flagicon.png', activeIcon: '/flagicon-blue.png' },
-    { id: 'test', label: 'Test', href: '/test', icon: '/bookicon.png', activeIcon: '/bookicon-blue.png' },
+    { id: 'home', label: 'Home', path: '/', icon: '/homeicon.png', activeIcon: '/homeicon-blue.png' },
+    { id: 'cv', label: 'My CV', path: '/cv', icon: '/texticon.png', activeIcon: '/texticon-blue.png' },
+    { id: 'jobs', label: 'Jobs', path: '/jobs', icon: '/briefcaseicon.png', activeIcon: '/briefcaseicon-blue.png' },
+    { id: 'guide', label: 'Guide', path: '/guide', icon: '/flagicon.png', activeIcon: '/flagicon-blue.png' },
+    { id: 'tests', label: 'Tests', path: '/tests', icon: '/bookicon.png', activeIcon: '/bookicon-blue.png' },
   ];
 
   return (
@@ -16,24 +16,25 @@ const Navbar = () => {
       <ul style={styles.navLinks}>
         {navItems.map((item) => (
           <li key={item.id} style={styles.navItem}>
-            <a
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveItem(item.id);
-              }}
-              style={{
+            <NavLink
+              to={item.path}
+              style={({ isActive }) => ({
                 ...styles.linkWrapper,
-                ...(activeItem === item.id ? styles.active : {}),
-              }}
+                ...(isActive ? styles.active : {}),
+              })}
             >
-              <img
-                src={activeItem === item.id ? item.activeIcon : item.icon}
-                alt={`${item.label} icon`}
-                style={styles.icon}
-              />
-              <span style={styles.linkText}>{item.label}</span>
-            </a>
+              {({ isActive }) => (
+                <>
+                  <img
+                    src={isActive ? item.activeIcon : item.icon}
+                    alt={`${item.label} icon`}
+                    style={styles.icon}
+                  />
+                  <span style={styles.linkText}>{item.label}</span>
+                </>
+              )}
+            </NavLink>
+
           </li>
         ))}
       </ul>
@@ -43,10 +44,17 @@ const Navbar = () => {
 
 const styles = {
   nav: {
+
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: '#fff',
     padding: '1rem',
+    boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.1)',
+    zIndex: 1000,
   },
   navLinks: {
     display: 'flex',
