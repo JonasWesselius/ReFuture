@@ -54,7 +54,8 @@ const generateModernProfessional = async (doc, formData) => {
   
   // Section headers with accent color
   const sectionColor = [41, 128, 185];
-  
+
+ 
   // Education
   if (formData.education) {
     doc.setFontSize(16);

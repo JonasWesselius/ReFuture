@@ -1,4 +1,3 @@
-// src/components/ProgressGuide.js
 import React from 'react';
 
 const ProgressGuide = ({ progress }) => {
