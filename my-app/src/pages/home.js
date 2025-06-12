@@ -1,5 +1,4 @@
 import React from 'react';
-
 function Card({ children }) {
   return (
     <div style={styles.card}>
@@ -7,6 +6,8 @@ function Card({ children }) {
     </div>
   );
 }
+
+
 
 function Home() {
   return (

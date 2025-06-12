@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generatePDF } from '../services/pdfService';
 import './createCV.css';
+// Import template preview images
+import modernPreview from '../assets/cvs/modern1.png';
+import creativePreview from '../assets/cvs/creative1.png';
+import minimalisticPreview from '../assets/cvs/minimalistic1.png';
+import traditionalPreview from '../assets/cvs/traditional1.png';
 
 function CreateCV() {
   const navigate = useNavigate();
@@ -23,25 +28,25 @@ function CreateCV() {
     {
       id: 1,
       name: 'Modern Professional',
-      preview: '/templates/modern.png',
+      preview: modernPreview,
       description: 'Clean and professional design with modern typography'
     },
     {
       id: 2,
       name: 'Creative',
-      preview: '/templates/creative.png',
+      preview: creativePreview,
       description: 'Bold and creative layout with accent colors'
     },
     {
       id: 3,
       name: 'Minimalist',
-      preview: '/templates/minimalist.png',
+      preview: minimalisticPreview,
       description: 'Simple and elegant design focusing on content'
     },
     {
       id: 4,
       name: 'Traditional',
-      preview: '/templates/traditional.png',
+      preview: traditionalPreview,
       description: 'Classic layout with traditional formatting'
     }
   ];

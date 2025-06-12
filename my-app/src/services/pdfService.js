@@ -32,69 +32,78 @@ export const generatePDF = async (formData, templateId) => {
 };
 
 const generateModernProfessional = async (doc, formData) => {
-  // Header
+  // Header with accent line
+  doc.setDrawColor(41, 128, 185);
+  doc.setLineWidth(0.5);
+  doc.line(20, 25, 190, 25);
+  
+  // Name
   doc.setFontSize(24);
-  doc.setTextColor(0, 0, 0);
+  doc.setTextColor(41, 128, 185);
   doc.text(formData.fullName, 20, 20);
   
-  // Contact Information
+  // Contact Information with icons
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
   const contactInfo = [
-    formData.email,
-    formData.phone,
-    formData.address
-  ].filter(Boolean); // Remove empty values
-  doc.text(contactInfo, 20, 30);
+    `📧 ${formData.email}`,
+    `📱 ${formData.phone}`,
+    `📍 ${formData.address}`
+  ].filter(Boolean);
+  doc.text(contactInfo, 20, 35);
   
+  // Section headers with accent color
+  const sectionColor = [41, 128, 185];
+
+ 
   // Education
   if (formData.education) {
     doc.setFontSize(16);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Education', 20, 50);
+    doc.setTextColor(...sectionColor);
+    doc.text('Education', 20, 55);
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     const educationLines = doc.splitTextToSize(formData.education, 170);
-    doc.text(educationLines, 20, 60);
+    doc.text(educationLines, 20, 65);
   }
   
   // Work Experience
   if (formData.workExperience) {
     const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
     doc.setFontSize(16);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Work Experience', 20, 70 + educationHeight);
+    doc.setTextColor(...sectionColor);
+    doc.text('Work Experience', 20, 75 + educationHeight);
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     const experienceLines = doc.splitTextToSize(formData.workExperience, 170);
-    doc.text(experienceLines, 20, 80 + educationHeight);
+    doc.text(experienceLines, 20, 85 + educationHeight);
   }
   
   // Skills
   if (formData.skills) {
-    const previousHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
     const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
     doc.setFontSize(16);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Skills', 20, 100 + previousHeight + experienceHeight);
+    doc.setTextColor(...sectionColor);
+    doc.text('Skills', 20, 105 + educationHeight + experienceHeight);
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     const skillsLines = doc.splitTextToSize(formData.skills, 170);
-    doc.text(skillsLines, 20, 110 + previousHeight + experienceHeight);
+    doc.text(skillsLines, 20, 115 + educationHeight + experienceHeight);
   }
   
   // Languages
   if (formData.languages) {
-    const previousHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
+    const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
     const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
     const skillsHeight = formData.skills ? doc.getTextDimensions(formData.skills).h + 20 : 0;
     doc.setFontSize(16);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Languages', 20, 130 + previousHeight + experienceHeight + skillsHeight);
+    doc.setTextColor(...sectionColor);
+    doc.text('Languages', 20, 135 + educationHeight + experienceHeight + skillsHeight);
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     const languagesLines = doc.splitTextToSize(formData.languages, 170);
-    doc.text(languagesLines, 20, 140 + previousHeight + experienceHeight + skillsHeight);
+    doc.text(languagesLines, 20, 145 + educationHeight + experienceHeight + skillsHeight);
   }
 };
 
@@ -170,14 +179,14 @@ const generateCreative = async (doc, formData) => {
 };
 
 const generateMinimalist = async (doc, formData) => {
-  // Name
-  doc.setFontSize(20);
-  doc.setTextColor(0, 0, 0);
+  // Name with thin font
+  doc.setFontSize(28);
+  doc.setTextColor(50, 50, 50);
   doc.text(formData.fullName, 20, 30);
   
-  // Contact Information
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
+  // Contact Information with subtle styling
+  doc.setFontSize(9);
+  doc.setTextColor(120, 120, 120);
   const contactInfo = [
     formData.email,
     formData.phone,
@@ -185,13 +194,18 @@ const generateMinimalist = async (doc, formData) => {
   ].filter(Boolean);
   doc.text(contactInfo, 20, 40);
   
+  // Add a subtle horizontal line
+  doc.setDrawColor(200, 200, 200);
+  doc.setLineWidth(0.2);
+  doc.line(20, 45, 190, 45);
+  
   // Education
   if (formData.education) {
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Education', 20, 60);
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(12);
+    doc.setTextColor(50, 50, 50);
+    doc.text('EDUCATION', 20, 60);
+    doc.setFontSize(9);
+    doc.setTextColor(80, 80, 80);
     const educationLines = doc.splitTextToSize(formData.education, 170);
     doc.text(educationLines, 20, 70);
   }
@@ -199,11 +213,11 @@ const generateMinimalist = async (doc, formData) => {
   // Work Experience
   if (formData.workExperience) {
     const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Work Experience', 20, 80 + educationHeight);
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(12);
+    doc.setTextColor(50, 50, 50);
+    doc.text('EXPERIENCE', 20, 80 + educationHeight);
+    doc.setFontSize(9);
+    doc.setTextColor(80, 80, 80);
     const experienceLines = doc.splitTextToSize(formData.workExperience, 170);
     doc.text(experienceLines, 20, 90 + educationHeight);
   }
@@ -212,11 +226,11 @@ const generateMinimalist = async (doc, formData) => {
   if (formData.skills) {
     const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
     const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Skills', 20, 110 + educationHeight + experienceHeight);
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(12);
+    doc.setTextColor(50, 50, 50);
+    doc.text('SKILLS', 20, 110 + educationHeight + experienceHeight);
+    doc.setFontSize(9);
+    doc.setTextColor(80, 80, 80);
     const skillsLines = doc.splitTextToSize(formData.skills, 170);
     doc.text(skillsLines, 20, 120 + educationHeight + experienceHeight);
   }
@@ -226,11 +240,11 @@ const generateMinimalist = async (doc, formData) => {
     const educationHeight = formData.education ? doc.getTextDimensions(formData.education).h + 20 : 0;
     const experienceHeight = formData.workExperience ? doc.getTextDimensions(formData.workExperience).h + 20 : 0;
     const skillsHeight = formData.skills ? doc.getTextDimensions(formData.skills).h + 20 : 0;
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Languages', 20, 140 + educationHeight + experienceHeight + skillsHeight);
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(12);
+    doc.setTextColor(50, 50, 50);
+    doc.text('LANGUAGES', 20, 140 + educationHeight + experienceHeight + skillsHeight);
+    doc.setFontSize(9);
+    doc.setTextColor(80, 80, 80);
     const languagesLines = doc.splitTextToSize(formData.languages, 170);
     doc.text(languagesLines, 20, 150 + educationHeight + experienceHeight + skillsHeight);
   }
