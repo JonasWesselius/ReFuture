@@ -1,0 +1,119 @@
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #333;
+  color: white;
+  padding: 15px 20px;
+  position: relative;
+  z-index: 1;
+  background-image: url('/public/black-honeycomb-bg.png'); 
+  background-size: cover;
+  background-position: center;
+  height: 130px;
+  overflow: hidden; 
+}
+
+.profile-header .back-button,
+.profile-header .settings-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1;
+}
+
+.profile-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  z-index: 1;
+}
+
+.profile-content {
+  padding: 20px;
+  margin-top: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-info-box {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  padding-top: 80px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.profile-info-box h2 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.profile-info-box p {
+  margin: 2px 0;
+  color: #666;
+}
+
+.profile-info-box .edit-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-section {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.profile-section h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.profile-section .add-button,
+.profile-section .edit-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-section .add-button {
+  right: 50px; 
+}
+
+/* Profile icon placeholder */
+.profile-icon-placeholder {
+  width: 140px;
+  height: 140px;
+  background-color: #6a5acd;
+  border-radius: 50%;
+  position: absolute;
+  top: -70px;
+  left: 22%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  background-image: url('/public/user.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 2;
+} 
