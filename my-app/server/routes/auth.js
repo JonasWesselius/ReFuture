@@ -3,6 +3,28 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+// Verify token route
+router.get('/verify', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    const user = await User.findById(decoded.userId);
+    
+    if (!user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'Token is valid' });
+  } catch (error) {
+    console.log('Token verification failed:', error.message);
+    res.status(401).json({ message: 'Invalid token' });
+  }
+});
+
 // Signup route
 router.post('/signup', async (req, res) => {
   try {
