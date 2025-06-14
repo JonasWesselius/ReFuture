@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   // Function to verify token on load
   const verifyToken = async () => {
@@ -14,7 +15,6 @@ export const AuthProvider = ({ children }) => {
 
     if (storedToken && storedUser) {
       try {
-        // Make a request to verify the token
         const response = await fetch('http://localhost:5000/api/auth/verify', {
           headers: {
             'Authorization': `Bearer ${storedToken}`
@@ -42,30 +42,51 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (newToken, newUser) => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Set new data
     localStorage.setItem('token', newToken);
     localStorage.setItem('user', JSON.stringify(newUser));
+    
+    // Update state synchronously
     setToken(newToken);
     setUser(newUser);
+    
+    // Force a state update
+    setRefreshTrigger(Date.now());
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    
+    // Clear any cached data
+    if ('caches' in window) {
+      caches.keys().then(cacheNames => {
+        cacheNames.forEach(cacheName => {
+          caches.delete(cacheName);
+        });
+      });
+    }
+    
+    // Update state synchronously
     setToken(null);
     setUser(null);
+    
+    // Force a state update
+    setRefreshTrigger(Date.now());
   };
 
   const isAuthenticated = () => {
     return !!token && !!user;
   };
 
-  //error interceptor for API calls
   useEffect(() => {
     const originalFetch = window.fetch;
     window.fetch = async (...args) => {
       const [resource, config] = args;
       
-      // Add token to all requests if it exists
       if (token) {
         config.headers = {
           ...config.headers,
@@ -95,7 +116,15 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      token, 
+      loading, 
+      login, 
+      logout, 
+      isAuthenticated,
+      refreshTrigger 
+    }}>
       {children}
     </AuthContext.Provider>
   );

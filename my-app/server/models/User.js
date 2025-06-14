@@ -19,6 +19,46 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
+  countryOfOrigin: {
+    type: String,
+    trim: true
+  },
+  location: {
+    city: String,
+    region: String,
+    country: String
+  },
+  connections: {
+    type: Number,
+    default: 0
+  },
+  experience: [{
+    title: String,
+    company: String,
+    startDate: Date,
+    endDate: Date,
+    location: String,
+    type: String,
+    description: String
+  }],
+  languages: [{
+    name: String,
+    proficiency: String,
+    isLearning: Boolean
+  }],
+  testScores: [{
+    language: String,
+    score: Number,
+    maxScore: Number,
+    stars: Number,
+    date: Date
+  }],
+  cvs: [{
+    name: String,
+    description: String,
+    createdAt: Date,
+    updatedAt: Date
+  }],
   createdAt: {
     type: Date,
     default: Date.now

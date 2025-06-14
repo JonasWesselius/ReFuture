@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import Home from "../pages/home";
 import CV from "../pages/cv";
 import CreateCV from "../pages/createCV";
@@ -15,6 +16,7 @@ import LogoHeader from './LogoHeader';
 
 function MainContentWrapper() {
   const location = useLocation();
+  const { user } = useAuth();
   const hideHeaderAndNavbar = location.pathname === '/profile';
 
   return (
@@ -30,7 +32,7 @@ function MainContentWrapper() {
         <Route path="/tests" element={<Tests />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={<ProfilePage key={user?.id || 'no-user'} />} />
       </Routes>
       <Navbar />
     </>

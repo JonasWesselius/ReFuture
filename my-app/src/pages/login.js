@@ -43,8 +43,9 @@ function Login() {
       }
       
       login(data.token, data.user);
-
-      navigate('/');
+      
+      // Force a full page reload when navigating to profile
+      window.location.href = '/profile';
     } catch (err) {
       setError(err.message);
     } finally {
