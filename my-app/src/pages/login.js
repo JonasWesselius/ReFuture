@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTestScores } from '../context/TestScoreContext';
+import { useTestScores } from '../context/TestScoreContext';
 import './signup.css'; 
 
 function Login() {
@@ -12,6 +13,8 @@ function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const { setUser } = useTestScores();
   const { login } = useAuth();
   const { setUser } = useTestScores();
 
