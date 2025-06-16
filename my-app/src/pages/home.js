@@ -1,4 +1,7 @@
 import React from 'react';
+import './home.css';
+import TranslateWidget, { TranslatedText } from './translate';
+
 function Card({ children }) {
   return (
     <div style={styles.card}>
@@ -6,8 +9,6 @@ function Card({ children }) {
     </div>
   );
 }
-
-
 
 function Home() {
   return (

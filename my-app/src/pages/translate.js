@@ -116,7 +116,7 @@ function TranslateWidget() {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <div style={{ position: 'absolute', top: '20px', right: '275px', zIndex: 1000 }}>
+    <div style={{ position: 'absolute', top: '20px', right: '80px', zIndex: 1000 }}>
       <button 
         onClick={() => setShowDropdown(!showDropdown)}
         style={{

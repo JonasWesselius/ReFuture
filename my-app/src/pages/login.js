@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-<<<<<<< Updated upstream
 import { useTestScores } from '../context/TestScoreContext';
-=======
 import TranslateWidget, { TranslatedText } from './translate';
->>>>>>> Stashed changes
 import './signup.css'; 
 
 function Login() {

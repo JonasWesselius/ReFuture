@@ -1,10 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-<<<<<<< Updated upstream
 import './navbar.css';
-=======
 import { TranslatedText } from '../pages/translate';
->>>>>>> Stashed changes
 
 const Navbar = () => {
   const navItems = [
