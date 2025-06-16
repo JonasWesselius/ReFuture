@@ -3,6 +3,7 @@ import './jobs.css';
 import searchIcon from '../assets/icons/search.png';
 import filterIcon from '../assets/icons/filter.png';
 import sortIcon from '../assets/icons/sort.png';
+import TranslateWidget, { TranslatedText } from './translate';
 
 // Fake data for jobs
 const fakeJobs = [
@@ -311,13 +312,14 @@ function Jobs() {
 
   return (
     <div className="jobs-page">
+      <TranslateWidget />
       <div className="search-section">
         <div className="search-controls-card">
           <div style={{ position: 'relative', width: '100%' }}>
             <input
               type="text"
               className="search-bar"
-              placeholder="Search"
+              placeholder={<TranslatedText text="Search" />}
               value={searchTerm}
               onChange={handleSearch}
               style={{ paddingLeft: '3rem' }}
@@ -342,19 +344,19 @@ function Jobs() {
                 {showFilterDropdown && (
                   <div className="dropdown-menu">
                     <div className="filter-section">
-                      <h4>Job Type</h4>
+                      <h4><TranslatedText text="Job Type" /></h4>
                       {filterOptions.type.map(type => (
                         <div
                           key={type}
                           className={`filter-option ${filters.type === type ? 'selected' : ''}`}
                           onClick={() => handleFilterChange('type', type)}
                         >
-                          {type}
+                          <TranslatedText text={type} />
                         </div>
                       ))}
                     </div>
                     <div className="filter-section">
-                      <h4>Location</h4>
+                      <h4><TranslatedText text="Location" /></h4>
                       {filterOptions.location.map(location => (
                         <div
                           key={location}
@@ -366,14 +368,14 @@ function Jobs() {
                       ))}
                     </div>
                     <div className="filter-section">
-                      <h4>Status</h4>
+                      <h4><TranslatedText text="Status" /></h4>
                       {filterOptions.status.map(status => (
                         <div
                           key={status}
                           className={`filter-option ${filters.status === status ? 'selected' : ''}`}
                           onClick={() => handleFilterChange('status', status)}
                         >
-                          {status}
+                          <TranslatedText text={status} />
                         </div>
                       ))}
                     </div>
@@ -407,11 +409,11 @@ function Jobs() {
               <div className="stats">
                 <div className="stat-item">
                   <span className="stat-number">{savedJobs}</span>
-                  <span>Saved</span>
+                  <span><TranslatedText text="Saved" /></span>
                 </div>
                 <div className="stat-item">
                   <span className="stat-number">{appliedJobs}</span>
-                  <span>Applied</span>
+                  <span><TranslatedText text="Applied" /></span>
                 </div>
               </div>
             </div>
@@ -449,11 +451,11 @@ function Jobs() {
               </div>
             </div>
             <div className="job-details">
-              <span>{job.company}</span>
+              <span><TranslatedText text={job.company} /></span>
               <span>•</span>
-              <span>{job.location}</span>
+              <span><TranslatedText text={job.location} /></span>
               <span>•</span>
-              <span className="job-type">{job.type}</span>
+              <span className="job-type"><TranslatedText text={job.type} /></span>
               <span>•</span>
               <span>{job.salary}</span>
             </div>
@@ -476,13 +478,13 @@ function Jobs() {
             <button className="close-btn" onClick={handleCloseJobDetails}>×</button>
             
             <div className="job-details-header">
-              <h1>{selectedJob.title}</h1>
+              <h1><TranslatedText text={selectedJob.title} /></h1>
               <div className="job-details-meta">
-                <span>{selectedJob.company}</span>
+                <span><TranslatedText text={selectedJob.company} /></span>
                 <span>•</span>
-                <span>{selectedJob.location}</span>
+                <span><TranslatedText text={selectedJob.location} /></span>
                 <span>•</span>
-                <span className="job-type">{selectedJob.type}</span>
+                <span className="job-type"><TranslatedText text={selectedJob.type} /></span>
                 <span>•</span>
                 <span>{selectedJob.salary}</span>
               </div>
@@ -490,37 +492,37 @@ function Jobs() {
 
             <div className="job-details-body">
               <section className="job-description-section">
-                <h2>Job Description</h2>
-                <p>{selectedJob.description}</p>
+                <h2><TranslatedText text="Job Description" /></h2>
+                <p><TranslatedText text={selectedJob.description} /></p>
               </section>
 
               <section className="job-requirements-section">
-                <h2>Requirements</h2>
+                <h2><TranslatedText text="Requirements" /></h2>
                 <ul>
-                  <li>No previous experience required</li>
-                  <li>Basic English language skills</li>
-                  <li>Willingness to learn</li>
-                  <li>Reliable and punctual</li>
+                  <li><TranslatedText text="No previous experience required" /></li>
+                  <li><TranslatedText text="Basic English language skills" /></li>
+                  <li><TranslatedText text="Willingness to learn" /></li>
+                  <li><TranslatedText text="Reliable and punctual" /></li>
                 </ul>
               </section>
 
               <section className="job-benefits-section">
-                <h2>Benefits</h2>
+                <h2><TranslatedText text="Benefits" /></h2>
                 <ul>
                   {selectedJob.sellingPoints.map((point, index) => (
-                    <li key={index}>{point}</li>
+                    <li key={index}><TranslatedText text={point} /></li>
                   ))}
                 </ul>
               </section>
 
               <section className="job-application-section">
-                <h2>How to Apply</h2>
-                <p>To apply for this position, click the button below. We'll guide you through the application process.</p>
+                <h2><TranslatedText text="How to Apply" /></h2>
+                <p><TranslatedText text="To apply for this position, click the button below. We'll guide you through the application process." /></p>
                 <button 
                   className="apply-btn"
                   onClick={() => handleApply(selectedJob.id)}
                 >
-                  Apply Now
+                  <TranslatedText text="Apply Now" />
                 </button>
               </section>
             </div>

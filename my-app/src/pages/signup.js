@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TranslateWidget, { TranslatedText } from './translate';
 import './signup.css';
 import { useAuth } from '../context/AuthContext';
 
@@ -89,7 +90,8 @@ function Signup() {
 
   return (
     <div className="signup-page">
-      <h2>Your Information</h2>
+      <TranslateWidget />
+      <h2><TranslatedText text="Your Information" /></h2>
       {error && <div className="error-message">{error}</div>}
       <form className="signup-form" onSubmit={handleSubmit}>
         <input
@@ -152,7 +154,7 @@ function Signup() {
           style={{ color: '#5fd3a6', background: 'none', border: 'none', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', fontSize: '1rem' }} 
           disabled={loading}
         >
-          Log in here
+          <TranslatedText text="Log in here" />
         </button>
       </div>
     </div>

@@ -69,7 +69,8 @@ function Login() {
 
   return (
     <div className="signup-page">
-      <h2>Log In</h2>
+      <TranslateWidget />
+      <h2><TranslatedText text="Log In" /></h2>
       {error && <div className="error-message">{error}</div>}
       <form className="signup-form" onSubmit={handleSubmit}>
         <input
@@ -91,7 +92,7 @@ function Login() {
           disabled={loading}
         />
         <button type="submit" className="create-account-btn" style={{marginBottom: '10px'}} disabled={loading}>
-          {loading ? 'Logging in...' : 'Log in'}
+          <TranslatedText text={loading ? 'Logging in...' : 'Log in'} />
         </button>
       </form>
       <div style={{ textAlign: 'center', marginTop: '8px' }}>

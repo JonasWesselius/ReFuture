@@ -1,5 +1,6 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import translationIcon from '../assets/translation.svg';
+import translationIcon from '../assets/translation.svg';
 
 const LanguageContext = createContext();
 
@@ -9,6 +10,98 @@ const languages = {
   ar: 'العربية',
   fr: 'Français',
   de: 'Deutsch',
+  es: 'Español',
+  fa: 'فارسی'
+};
+
+const manualTranslations = {
+  nl: {
+    "You haven't created any CVs yet." : "Je hebt nog geen CV aangemaakt.",
+    "Don't have an account? " : "Heeft u nog geen account? ",
+    "Create here" : "Hier aanmaken",
+    "Full Name" : "Voor- en achternaam",
+    "Available Jobs" : "Beschikbare banen",
+    "Tests" : "Toetsen",
+    "Welcome to the Tests page." : "Welkom op de pagina Toetsen.",
+    "Condition": "Voorwaarde",
+    "Job Type": "Type baan",
+    "Location": "Locatie",
+    "Status": "Status",
+    "Saved": "Opgeslagen",
+    "Applied": "Sollicitaties",
+    "All": "Alle",
+    "Full-time": "Voltijd",
+    "Part-time": "Deeltijd",
+    "New": "Nieuw",
+    "Not Interested": "Niet geïnteresseerd",
+    "Show more": "Meer weergeven",
+    "Job Description": "Functieomschrijving",
+    "Requirements": "Vereisten",
+    "Benefits": "Voordelen",
+    "How to Apply": "Hoe te solliciteren",
+    "Apply Now": "Nu solliciteren",
+    "Unsave": "Verwijderen",
+    "Save": "Opslaan",
+    "Remove Application": "Sollicitatie intrekken",
+    "Mark as Interested": "Interesse tonen",
+    "No previous experience required": "Geen ervaring vereist",
+    "Basic English language skills": "Basis Engels",
+    "Willingness to learn": "Bereid om te leren",
+    "Reliable and punctual": "Betrouwbaar en punctueel",
+    "To apply for this position, click the button below. We'll guide you through the application process.": "Klik op de knop hieronder om te solliciteren. We begeleiden je door het sollicitatieproces.",
+    "Language Tests": "Taaltoetsen",
+    "Overall Average Score": "Gemiddelde Score",
+    "Previous score:": "Vorige score:",
+    "Best score:": "Beste score:",
+    "English Tests": "Engelse Toetsen",
+    "Dutch Tests": "Nederlandse Toetsen",
+    "Start Test": "Start Toets",
+    "Previous Average:": "Vorig Gemiddelde:",
+    "Best Average:": "Beste Gemiddelde:",
+    "Next Question": "Volgende Vraag",
+    "Previous Question": "Vorige Vraag",
+    "Submit Test": "Toets Inleveren",
+    "Correct": "Correct",
+    "Incorrect": "Incorrect",
+    "Your Score": "Jouw Score",
+    "Review Answers": "Antwoorden Bekijken",
+    "Try Again": "Opnieuw Proberen",
+    "Back to Main Tests": "Terug naar Hoofdtoetsen",
+    "Reading": "Lezen",
+    "Writing": "Schrijven",
+    "Listening": "Luisteren",
+    "Start by writing your post..": "Begin met het schrijven van je bericht..",
+    "Like": "Vind ik leuk",
+    "Comment": "Reageer",
+    "Repost": "Delen",
+    "Share": "Delen",
+    "Show translation": "Vertaling weergeven",
+    "...more": "...meer",
+    "2,321 Followers • 1w • Edited": "2.321 Volgers • 1w • Bewerkt",
+    "523 Followers • 3w • Edited": "523 Volgers • 3w • Bewerkt",
+    "4,741 Followers • 4w • Edited": "4.741 Volgers • 4w • Bewerkt",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit.": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  fr: {
+
+  },
+    ar: {
+
+  },
+    de: {
+      "Create here" : "Erstellen Sie hier ein Konto",
+      "Guide" : "Führung",
+      "Tests" : "Testen",
+      "Your career development platform." : "Ihre Karriere Entwicklungsplattform.",
+      "You haven't created any CVs yet." : "Sie haben noch keinen Lebenslauf erstellt.",
+      "Available Jobs" : "Offene Stellen",
+  },
+    es: {
+
+  },
+  fa: {
+    
+  }
   es: 'Español',
   fa: 'فارسی'
 };
@@ -188,12 +281,18 @@ function TranslateWidgetComponent() {
         style={{
           padding: 0,
           backgroundColor: 'transparent',
+          padding: 0,
+          backgroundColor: 'transparent',
           border: 'none',
+          cursor: 'pointer',
+          width: '40px',
+          height: '40px'
           cursor: 'pointer',
           width: '40px',
           height: '40px'
         }}
       >
+        <img src={translationIcon} alt="language" width="100%" height="100%" />
         <img src={translationIcon} alt="language" width="100%" height="100%" />
       </button>
       {showDropdown && (

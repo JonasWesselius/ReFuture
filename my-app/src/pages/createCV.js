@@ -98,6 +98,7 @@ function CreateCV() {
 
   return (
     <div className="create-cv-page">
+      <TranslateWidget />
       <div className="create-cv-header">
         <h1><TranslatedText text="Create New CV" /></h1>
       </div>
