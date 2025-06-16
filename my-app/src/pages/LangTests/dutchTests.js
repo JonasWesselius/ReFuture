@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TranslateWidget, { TranslatedText } from '../translate';
 
 function DutchTests() {
   const navigate = useNavigate();
@@ -141,54 +142,69 @@ function DutchTests() {
 
   return (
     <div style={styles.page}>
-      <button onClick={handleBack} style={styles.backButton}>Back to Main Tests</button>
-      <h1 style={styles.mainTitle}>Dutch Tests</h1>
+      <TranslateWidget />
+      <button onClick={handleBack} style={styles.backButton}>
+        <TranslatedText text="Back to Main Tests" />
+      </button>
+      <h1 style={styles.mainTitle}><TranslatedText text="Dutch Tests" /></h1>
       <div style={styles.cardsContainer}>
         <div style={styles.card}>
           <div style={styles.header}>
-            <h2 style={styles.title}>Reading</h2>
+            <h2 style={styles.title}><TranslatedText text="Reading" /></h2>
             <button 
               style={styles.button}
               onClick={() => navigate('/dutch-tests/reading')}
             >
-              Start Test
+              <TranslatedText text="Start Test" />
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>Previous score: {readingScores.lastScore}</p>
-            <p style={styles.scoreText}>Best score: {readingScores.bestScore}</p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Previous score:" /> {readingScores.lastScore}
+            </p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Best score:" /> {readingScores.bestScore}
+            </p>
             {renderStars(readingScores.bestScore)}
           </div>
         </div>
         <div style={styles.card}>
           <div style={styles.header}>
-            <h2 style={styles.title}>Writing</h2>
+            <h2 style={styles.title}><TranslatedText text="Writing" /></h2>
             <button 
               style={styles.button}
               onClick={() => navigate('/dutch-tests/writing')}
             >
-              Start Test
+              <TranslatedText text="Start Test" />
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>Previous score: {writingScores.lastScore}</p>
-            <p style={styles.scoreText}>Best score: {writingScores.bestScore}</p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Previous score:" /> {writingScores.lastScore}
+            </p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Best score:" /> {writingScores.bestScore}
+            </p>
             {renderStars(writingScores.bestScore)}
           </div>
         </div>
         <div style={styles.card}>
           <div style={styles.header}>
-            <h2 style={styles.title}>Listening</h2>
+            <h2 style={styles.title}><TranslatedText text="Listening" /></h2>
             <button 
               style={styles.button}
               onClick={() => navigate('/dutch-tests/listening')}
             >
-              Start Test
+              <TranslatedText text="Start Test" />
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>Previous score: {listeningScores.lastScore}</p>
-            <p style={styles.scoreText}>Best score: {listeningScores.bestScore}</p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Previous score:" /> {listeningScores.lastScore}
+            </p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Best score:" /> {listeningScores.bestScore}
+            </p>
             {renderStars(listeningScores.bestScore)}
           </div>
         </div>
@@ -197,4 +213,4 @@ function DutchTests() {
   );
 }
 
-export default DutchTests; 
+export default DutchTests;

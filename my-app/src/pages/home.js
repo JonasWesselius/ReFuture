@@ -13,11 +13,13 @@ function Card({ children }) {
 function Home() {
   return (
     <div style={styles.page}>
-
+      <TranslateWidget />
       {/* Post Input Bar */}
       <div style={styles.inputBar}>
         <div style={styles.inputAvatar}>👤</div>
-        <div style={styles.inputBox}>Start by writing your post..</div>
+        <div style={styles.inputBox}>
+          <TranslatedText text="Start by writing your post.." />
+        </div>
         <div style={styles.cameraIcon}>📷</div>
       </div>
 
@@ -27,17 +29,21 @@ function Home() {
           <div style={styles.avatar}>JD</div>
           <div>
             <div style={styles.name}>John Doe</div>
-            <div style={styles.meta}>2,321 Followers • 1w • Edited</div>
+            <div style={styles.meta}>
+              <TranslatedText text="2,321 Followers • 1w • Edited" />
+            </div>
           </div>
           <div style={styles.dots}>⋮</div>
         </div>
 
         <div style={styles.postBody}>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-            <span style={styles.more}>...more</span>
+            <TranslatedText text="Lorem ipsum dolor sit amet consectetur adipisicing elit." />{" "}
+            <span style={styles.more}><TranslatedText text="...more" /></span>
           </p>
-          <div style={styles.translate}>Show translation</div>
+          <div style={styles.translate}>
+            <TranslatedText text="Show translation" />
+          </div>
         </div>
 
         <div style={styles.linkPreview}>
@@ -46,10 +52,10 @@ function Home() {
         </div>
 
         <div style={styles.postActions}>
-          <button style={styles.button}>👍 Like</button>
-          <button style={styles.button}>💬 Comment</button>
-          <button style={styles.button}>🔁 Repost</button>
-          <button style={styles.button}>🔗 Share</button>
+          <button style={styles.button}>👍 <TranslatedText text="Like" /></button>
+          <button style={styles.button}>💬 <TranslatedText text="Comment" /></button>
+          <button style={styles.button}>🔁 <TranslatedText text="Repost" /></button>
+          <button style={styles.button}>🔗 <TranslatedText text="Share" /></button>
         </div>
       </Card>
 
