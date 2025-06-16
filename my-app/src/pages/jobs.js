@@ -3,7 +3,7 @@ import './jobs.css';
 import searchIcon from '../assets/icons/search.png';
 import filterIcon from '../assets/icons/filter.png';
 import sortIcon from '../assets/icons/sort.png';
-import TranslateWidget, { TranslatedText } from './translate';
+import { TranslatedText, TranslateWidget } from './translate';
 
 // Fake data for jobs
 const fakeJobs = [
@@ -429,7 +429,7 @@ function Jobs() {
             style={index === filteredAndSortedJobs.length - 1 ? { marginBottom: '100px' } : {}}
           >
             <div className="job-header">
-              <h3 className="job-title">{job.title}</h3>
+              <h2 className="job-title"><TranslatedText text={job.title} /></h2>
               <div className="job-menu">
                 <button 
                   className="menu-button"
@@ -437,15 +437,24 @@ function Jobs() {
                 >
                   ⋮
                 </button>
-                <div className={activeMenu === job.id ? "menu-dropdown show" : "menu-dropdown"}>
-                  <div className="menu-item" onClick={() => handleJobAction(job.id, 'saved')}>
-                    {job.status === 'saved' ? 'Unsave' : 'Save'}
+                <div className={`menu-dropdown ${activeMenu === job.id ? 'show' : ''}`}>
+                  <div 
+                    className="menu-item"
+                    onClick={() => handleJobAction(job.id, 'saved')}
+                  >
+                    <TranslatedText text={job.status === 'saved' ? 'Unsave' : 'Save'} />
                   </div>
-                  <div className="menu-item" onClick={() => handleJobAction(job.id, 'interested')}>
-                    {job.status === 'interested' ? 'Remove Application' : 'Mark as Interested'}
+                  <div 
+                    className="menu-item"
+                    onClick={() => handleJobAction(job.id, 'interested')}
+                  >
+                    <TranslatedText text={job.status === 'interested' ? 'Remove Application' : 'Mark as Interested'} />
                   </div>
-                  <div className="menu-item" onClick={() => handleJobAction(job.id, 'not-interested')}>
-                    Not Interested
+                  <div 
+                    className="menu-item"
+                    onClick={() => handleJobAction(job.id, 'not-interested')}
+                  >
+                    <TranslatedText text="Not Interested" />
                   </div>
                 </div>
               </div>
@@ -460,12 +469,15 @@ function Jobs() {
               <span>{job.salary}</span>
             </div>
             <ul className="selling-points">
-              {job.sellingPoints.map((point, i) => (
-                <li key={i}>{point}</li>
+              {job.sellingPoints.map((point, index) => (
+                <li key={index}><TranslatedText text={point} /></li>
               ))}
             </ul>
-            <button className="more-btn" onClick={() => handleShowMore(job)}>
-              Show more
+            <button 
+              className="more-btn"
+              onClick={() => handleShowMore(job)}
+            >
+              <TranslatedText text="Show more" />
               <span>▼</span>
             </button>
           </div>

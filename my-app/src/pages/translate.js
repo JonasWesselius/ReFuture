@@ -1,6 +1,5 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import translationIcon from '../assets/translation.svg';
-import translationIcon from '../assets/translation.svg';
 
 const LanguageContext = createContext();
 
@@ -10,98 +9,6 @@ const languages = {
   ar: 'العربية',
   fr: 'Français',
   de: 'Deutsch',
-  es: 'Español',
-  fa: 'فارسی'
-};
-
-const manualTranslations = {
-  nl: {
-    "You haven't created any CVs yet." : "Je hebt nog geen CV aangemaakt.",
-    "Don't have an account? " : "Heeft u nog geen account? ",
-    "Create here" : "Hier aanmaken",
-    "Full Name" : "Voor- en achternaam",
-    "Available Jobs" : "Beschikbare banen",
-    "Tests" : "Toetsen",
-    "Welcome to the Tests page." : "Welkom op de pagina Toetsen.",
-    "Condition": "Voorwaarde",
-    "Job Type": "Type baan",
-    "Location": "Locatie",
-    "Status": "Status",
-    "Saved": "Opgeslagen",
-    "Applied": "Sollicitaties",
-    "All": "Alle",
-    "Full-time": "Voltijd",
-    "Part-time": "Deeltijd",
-    "New": "Nieuw",
-    "Not Interested": "Niet geïnteresseerd",
-    "Show more": "Meer weergeven",
-    "Job Description": "Functieomschrijving",
-    "Requirements": "Vereisten",
-    "Benefits": "Voordelen",
-    "How to Apply": "Hoe te solliciteren",
-    "Apply Now": "Nu solliciteren",
-    "Unsave": "Verwijderen",
-    "Save": "Opslaan",
-    "Remove Application": "Sollicitatie intrekken",
-    "Mark as Interested": "Interesse tonen",
-    "No previous experience required": "Geen ervaring vereist",
-    "Basic English language skills": "Basis Engels",
-    "Willingness to learn": "Bereid om te leren",
-    "Reliable and punctual": "Betrouwbaar en punctueel",
-    "To apply for this position, click the button below. We'll guide you through the application process.": "Klik op de knop hieronder om te solliciteren. We begeleiden je door het sollicitatieproces.",
-    "Language Tests": "Taaltoetsen",
-    "Overall Average Score": "Gemiddelde Score",
-    "Previous score:": "Vorige score:",
-    "Best score:": "Beste score:",
-    "English Tests": "Engelse Toetsen",
-    "Dutch Tests": "Nederlandse Toetsen",
-    "Start Test": "Start Toets",
-    "Previous Average:": "Vorig Gemiddelde:",
-    "Best Average:": "Beste Gemiddelde:",
-    "Next Question": "Volgende Vraag",
-    "Previous Question": "Vorige Vraag",
-    "Submit Test": "Toets Inleveren",
-    "Correct": "Correct",
-    "Incorrect": "Incorrect",
-    "Your Score": "Jouw Score",
-    "Review Answers": "Antwoorden Bekijken",
-    "Try Again": "Opnieuw Proberen",
-    "Back to Main Tests": "Terug naar Hoofdtoetsen",
-    "Reading": "Lezen",
-    "Writing": "Schrijven",
-    "Listening": "Luisteren",
-    "Start by writing your post..": "Begin met het schrijven van je bericht..",
-    "Like": "Vind ik leuk",
-    "Comment": "Reageer",
-    "Repost": "Delen",
-    "Share": "Delen",
-    "Show translation": "Vertaling weergeven",
-    "...more": "...meer",
-    "2,321 Followers • 1w • Edited": "2.321 Volgers • 1w • Bewerkt",
-    "523 Followers • 3w • Edited": "523 Volgers • 3w • Bewerkt",
-    "4,741 Followers • 4w • Edited": "4.741 Volgers • 4w • Bewerkt",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit.": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-  },
-  fr: {
-
-  },
-    ar: {
-
-  },
-    de: {
-      "Create here" : "Erstellen Sie hier ein Konto",
-      "Guide" : "Führung",
-      "Tests" : "Testen",
-      "Your career development platform." : "Ihre Karriere Entwicklungsplattform.",
-      "You haven't created any CVs yet." : "Sie haben noch keinen Lebenslauf erstellt.",
-      "Available Jobs" : "Offene Stellen",
-  },
-    es: {
-
-  },
-  fa: {
-    
-  }
   es: 'Español',
   fa: 'فارسی'
 };
@@ -270,67 +177,55 @@ export function TranslatedText({ text }) {
   return translated || text;
 }
 
-function TranslateWidgetComponent() {
-  const { language, changeLanguage } = useTranslation();
+export const TranslateWidget = () => {
+  const { language, setLanguage } = useTranslation();
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-      <button 
+    <div style={{ position: 'relative' }}>
+      <button
         onClick={() => setShowDropdown(!showDropdown)}
         style={{
-          padding: 0,
-          backgroundColor: 'transparent',
-          padding: 0,
-          backgroundColor: 'transparent',
+          position: 'fixed',
+          top: '20px',
+          right: '70px',
+          zIndex: 1001,
+          cursor: 'pointer',
+          background: 'none',
           border: 'none',
-          cursor: 'pointer',
-          width: '40px',
-          height: '40px'
-          cursor: 'pointer',
-          width: '40px',
-          height: '40px'
         }}
       >
-        <img src={translationIcon} alt="language" width="100%" height="100%" />
-        <img src={translationIcon} alt="language" width="100%" height="100%" />
+        <img src={translationIcon} alt="language" style={{ width: '30px', height: '30px' }} />
       </button>
       {showDropdown && (
         <div style={{
-          position: 'absolute',
-          top: 'calc(100% + 5px)',
-          left: 0,
-          backgroundColor: 'white',
-          border: '1px solid #ddd',
+          position: 'fixed',
+          top: '70px',
+          right: '20px',
+          backgroundColor: '#fff',
+          border: '1px solid #ccc',
           borderRadius: '4px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-          zIndex: 1000,
-          display: 'flex',
-          flexDirection: 'column',
-          minWidth: '120px',
+          padding: '10px',
+          zIndex: 1001
         }}>
-          {Object.entries(languages).map(([key, value]) => (
-            <button
-              key={key}
-              onClick={() => changeLanguage(key)}
+          {Object.entries(languages).map(([code, name]) => (
+            <div
+              key={code}
+              onClick={() => {
+                setLanguage(code);
+                setShowDropdown(false);
+              }}
               style={{
-                padding: '8px 12px',
-                backgroundColor: key === language ? '#f0f0f0' : 'transparent',
-                border: 'none',
-                textAlign: 'left',
+                padding: '5px 10px',
                 cursor: 'pointer',
-                fontSize: '0.9rem',
-                color: '#333',
-                transition: 'background-color 0.2s',
+                backgroundColor: language === code ? '#f0f0f0' : 'transparent'
               }}
             >
-              {value}
-            </button>
+              {name}
+            </div>
           ))}
         </div>
       )}
     </div>
   );
-}
-
-export const TranslateWidget = TranslateWidgetComponent;
+};

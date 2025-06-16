@@ -150,22 +150,17 @@ function EnglishTests() {
         <div style={styles.card}>
           <div style={styles.header}>
             <h2 style={styles.title}><TranslatedText text="Reading" /></h2>
-            <h2 style={styles.title}><TranslatedText text="Reading" /></h2>
+            
             <button 
               style={styles.button}
               onClick={() => navigate('/english-tests/reading')}
             >
               <TranslatedText text="Start Test" />
-              <TranslatedText text="Start Test" />
+             
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Previous score:" /> {readingScores.lastScore}
-            </p>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Best score:" /> {readingScores.bestScore}
-            </p>
+            
             <p style={styles.scoreText}>
               <TranslatedText text="Previous score:" /> {readingScores.lastScore}
             </p>
@@ -178,22 +173,17 @@ function EnglishTests() {
         <div style={styles.card}>
           <div style={styles.header}>
             <h2 style={styles.title}><TranslatedText text="Writing" /></h2>
-            <h2 style={styles.title}><TranslatedText text="Writing" /></h2>
+           
             <button 
               style={styles.button}
               onClick={() => navigate('/english-tests/writing')}
             >
               <TranslatedText text="Start Test" />
-              <TranslatedText text="Start Test" />
+             
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Previous score:" /> {writingScores.lastScore}
-            </p>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Best score:" /> {writingScores.bestScore}
-            </p>
+            
             <p style={styles.scoreText}>
               <TranslatedText text="Previous score:" /> {writingScores.lastScore}
             </p>
@@ -206,13 +196,13 @@ function EnglishTests() {
         <div style={styles.card}>
           <div style={styles.header}>
             <h2 style={styles.title}><TranslatedText text="Listening" /></h2>
-            <h2 style={styles.title}><TranslatedText text="Listening" /></h2>
+           
             <button 
               style={styles.button}
               onClick={() => navigate('/english-tests/listening')}
             >
               <TranslatedText text="Start Test" />
-              <TranslatedText text="Start Test" />
+             
             </button>
           </div>
           <div style={styles.scoreContainer}>
@@ -222,12 +212,7 @@ function EnglishTests() {
             <p style={styles.scoreText}>
               <TranslatedText text="Best score:" /> {listeningScores.bestScore}
             </p>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Previous score:" /> {listeningScores.lastScore}
-            </p>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Best score:" /> {listeningScores.bestScore}
-            </p>
+           
             {renderStars(listeningScores.bestScore)}
           </div>
         </div>
@@ -236,5 +221,4 @@ function EnglishTests() {
   );
 }
 
-export default EnglishTests;
 export default EnglishTests;

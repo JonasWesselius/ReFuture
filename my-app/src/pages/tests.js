@@ -261,16 +261,7 @@ function Tests() {
           <h2 style={styles.overallScoreTitle}>
             <TranslatedText text="Overall Average Score" />
           </h2>
-          <h2 style={styles.overallScoreTitle}>
-            <TranslatedText text="Overall Average Score" />
-          </h2>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Previous score:" /> {averageScores.lastAverage}
-            </p>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Best score:" /> {averageScores.bestAverage}
-            </p>
             <p style={styles.scoreText}>
               <TranslatedText text="Previous score:" /> {averageScores.lastAverage}
             </p>
@@ -284,7 +275,6 @@ function Tests() {
         <div style={styles.card}>
           <div style={styles.header}>
             <h2 style={styles.title}><TranslatedText text="English Tests" /></h2>
-            <h2 style={styles.title}><TranslatedText text="English Tests" /></h2>
             <button 
               style={styles.button}
               onClick={() => { 
@@ -292,16 +282,9 @@ function Tests() {
               }}
             >
               <TranslatedText text="Start Test" />
-              <TranslatedText text="Start Test" />
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Previous score:" /> {Math.round((readingScores.lastScore + writingScores.lastScore + listeningScores.lastScore) / 2.3)}
-            </p>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Best score:" /> {Math.round((readingScores.bestScore + writingScores.bestScore + listeningScores.bestScore) / 2.3)}
-            </p>
             <p style={styles.scoreText}>
               <TranslatedText text="Previous score:" /> {Math.round((readingScores.lastScore + writingScores.lastScore + listeningScores.lastScore) / 2.3)}
             </p>
@@ -317,7 +300,6 @@ function Tests() {
         }}>
           <div style={styles.header}>
             <h2 style={styles.title}><TranslatedText text="Dutch Tests" /></h2>
-            <h2 style={styles.title}><TranslatedText text="Dutch Tests" /></h2>
             <button 
               style={styles.button}
               onClick={() => { 
@@ -325,16 +307,9 @@ function Tests() {
               }}
             >
               <TranslatedText text="Start Test" />
-              <TranslatedText text="Start Test" />
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Previous score:" /> {dutchScores.lastScore}
-            </p>
-            <p style={styles.scoreText}>
-              <TranslatedText text="Best score:" /> {dutchScores.bestScore}
-            </p>
             <p style={styles.scoreText}>
               <TranslatedText text="Previous score:" /> {dutchScores.lastScore}
             </p>
@@ -349,5 +324,4 @@ function Tests() {
   );
 }
 
-export default Tests;
 export default Tests;
