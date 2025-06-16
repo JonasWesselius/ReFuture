@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import Home from "../pages/home";
 import CV from "../pages/cv";
 import CreateCV from "../pages/createCV";
@@ -24,7 +23,6 @@ import EnglishWriting from "../pages/LangTests/EnglishWriting";
 
 function MainContentWrapper() {
   const location = useLocation();
-  const { user } = useAuth();
   const hideHeaderAndNavbar = location.pathname === '/profile';
 
   return (

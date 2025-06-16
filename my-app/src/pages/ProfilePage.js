@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './ProfilePage.css';
@@ -11,7 +11,7 @@ function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     if (!token) {
       setProfile(null);
       setLoading(false);
@@ -38,12 +38,12 @@ function ProfilePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   // Fetch profile on mount and when URL changes
   useEffect(() => {
     fetchProfile();
-  }, [location.pathname]); 
+  }, [location.pathname, fetchProfile]); 
 
   const handleGoBack = () => {
     navigate(-1);

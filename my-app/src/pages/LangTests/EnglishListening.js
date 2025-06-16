@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTestScores } from '../../context/TestScoreContext';
 import { useAuth } from '../../context/AuthContext';
 
 function EnglishListening() {
   const navigate = useNavigate();
-  const { updateScore, scores } = useTestScores();
+  const { updateScore } = useTestScores();
   const { isAuthenticated } = useAuth();
   const [answers, setAnswers] = useState({
     multipleChoice: Array(5).fill(''),

@@ -46,7 +46,6 @@ export const TestScoreProvider = ({ children }) => {
 
   const updateScore = (testId, score) => {
     setScores(prev => {
-      const currentScore = prev[testId]?.current || 0;
       const bestScore = prev[testId]?.best || 0;
       
       return {

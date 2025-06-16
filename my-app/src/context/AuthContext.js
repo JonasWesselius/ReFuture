@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const AuthContext = createContext(null);
 
@@ -8,8 +8,35 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
+  const logout = useCallback(() => {
+    // Clear auth data
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Clear any cached data
+    if ('caches' in window) {
+      caches.keys().then(cacheNames => {
+        cacheNames.forEach(cacheName => {
+          caches.delete(cacheName);
+        });
+      });
+    }
+    
+    // Update state synchronously
+    setToken(null);
+    setUser(null);
+    
+    // Force a state update
+    setRefreshTrigger(Date.now());
+
+    // Clear test scores for the current user
+    if (user && user.id) {
+      localStorage.removeItem(`testScores_${user.id}`);
+    }
+  }, [user]);
+
   // Function to verify token on load
-  const verifyToken = async () => {
+  const verifyToken = useCallback(async () => {
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
 
@@ -35,11 +62,11 @@ export const AuthProvider = ({ children }) => {
       }
     }
     setLoading(false);
-  };
+  }, [logout]);
 
   useEffect(() => {
     verifyToken();
-  }, []);
+  }, [verifyToken]);
 
   const login = (newToken, newUser) => {
     localStorage.removeItem('token');
@@ -55,34 +82,6 @@ export const AuthProvider = ({ children }) => {
     
     // Force a state update
     setRefreshTrigger(Date.now());
-  };
-
-  const logout = () => {
-    // Clear auth data
-    // Clear auth data
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    
-    // Clear any cached data
-    if ('caches' in window) {
-      caches.keys().then(cacheNames => {
-        cacheNames.forEach(cacheName => {
-          caches.delete(cacheName);
-        });
-      });
-    }
-    
-    // Update state synchronously
-    setToken(null);
-    setUser(null);
-    
-    // Force a state update
-    setRefreshTrigger(Date.now());
-
-    // Clear test scores for the current user
-    if (user && user.id) {
-      localStorage.removeItem(`testScores_${user.id}`);
-    }
   };
 
   const isAuthenticated = () => {
@@ -120,7 +119,7 @@ export const AuthProvider = ({ children }) => {
         throw error;
       }
     };
-  }, [token]);
+  }, [token, logout]);
 
   return (
     <AuthContext.Provider value={{ 

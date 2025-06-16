@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTestScores } from '../../context/TestScoreContext';
 import { useAuth } from '../../context/AuthContext';

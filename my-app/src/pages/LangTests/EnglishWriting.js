@@ -24,34 +24,6 @@ function EnglishWriting() {
     return Math.max(maxScore - deductions, 0);
   };
 
-  const checkTextForScore = async () => {
-    const language = "en-US";
-    const params = new URLSearchParams({
-      text: answers.essay,
-      language,
-    });
-
-    try {
-      const res = await fetch("https://api.languagetool.org/v2/check", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: params.toString(),
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
-      const data = await res.json();
-      return calculateScore(data.matches);
-    } catch (error) {
-      console.error("Error checking text for score:", error);
-      return 0;
-    }
-  };
-
   const handleTextChange = (e) => {
     const newText = e.target.value;
     setAnswers({ ...answers, essay: newText });
