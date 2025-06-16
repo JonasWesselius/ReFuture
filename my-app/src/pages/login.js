@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTestScores } from '../context/TestScoreContext';
+import { TranslateWidget, TranslatedText } from './translate';
 import './signup.css';
 
 function Login() {

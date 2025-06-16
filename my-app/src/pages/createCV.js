@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generatePDF } from '../services/pdfService';
-import { TranslatedText } from './translate';
+import { TranslatedText, TranslateWidget } from './translate';
 import './createCV.css';
 // Import template preview images
 import modernPreview from '../assets/cvs/modern1.png';
