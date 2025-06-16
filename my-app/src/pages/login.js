@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTestScores } from '../context/TestScoreContext';
-import './signup.css'; 
+import './signup.css';
 
 function Login() {
   const [form, setForm] = useState({
@@ -96,7 +96,12 @@ function Login() {
       </form>
       <div style={{ textAlign: 'center', marginTop: '8px' }}>
         <span>Don't have an account? </span>
-        <button type="button" onClick={goToSignup} style={{ color: '#5fd3a6', background: 'none', border: 'none', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', fontSize: '1rem' }} disabled={loading}>
+        <button 
+          type="button" 
+          onClick={goToSignup} 
+          style={{ color: '#5fd3a6', background: 'none', border: 'none', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', fontSize: '1rem' }} 
+          disabled={loading}
+        >
           Create here
         </button>
       </div>

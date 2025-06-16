@@ -1,11 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { TranslatedText, useTranslation, translateText } from './translate';
+import './home.css';
 
 function CreatePostOverlay({ isOpen, onClose, onSubmit }) {
-  const [postContent, setPostContent] = useState('');
+  const [content, setContent] = useState('');
   const [showEmojis, setShowEmojis] = useState(false);
   const [selectedImageName, setSelectedImageName] = useState(null);
   const [imageForSubmission, setImageForSubmission] = useState(null);
   const fileInputRef = useRef(null);
+  const { language } = useTranslation();
+  const [translatedPlaceholder, setTranslatedPlaceholder] = useState("What's on your mind?");
+
+  useEffect(() => {
+    const getPlaceholder = async () => {
+      const translated = await translateText("What's on your mind?", language);
+      setTranslatedPlaceholder(translated);
+    };
+    getPlaceholder();
+  }, [language]);
 
   const emojis = [
     '😊', '😂', '❤️', '👍', '🎉', '🙏', '💪', '🤝',
@@ -14,17 +26,17 @@ function CreatePostOverlay({ isOpen, onClose, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!postContent.trim() && !imageForSubmission) return;
+    if (!content.trim() && !imageForSubmission) return;
     
-    onSubmit(postContent, imageForSubmission);
-    setPostContent('');
+    onSubmit(content, imageForSubmission);
+    setContent('');
     setSelectedImageName(null);
     setImageForSubmission(null);
     onClose();
   };
 
   const handleEmojiClick = (emoji) => {
-    setPostContent(prev => prev + emoji);
+    setContent(prev => prev + emoji);
     setShowEmojis(false);
   };
 
@@ -70,19 +82,19 @@ function CreatePostOverlay({ isOpen, onClose, onSubmit }) {
 
   return (
     <div style={styles.overlay}>
-      <div style={styles.overlayContent}>
-        <div style={styles.overlayHeader}>
-          <h2 style={styles.overlayTitle}>Create Post</h2>
+      <div style={styles.modal}>
+        <div style={styles.modalHeader}>
+          <h2 style={styles.modalTitle}><TranslatedText text="Create Post" /></h2>
           <button onClick={onClose} style={styles.closeButton}>×</button>
         </div>
         <form onSubmit={handleSubmit}>
           <textarea
-            value={postContent}
-            onChange={(e) => setPostContent(e.target.value)}
-            placeholder="What's on your mind?"
-            style={styles.postTextarea}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder={translatedPlaceholder}
+            style={styles.postInput}
           />
-          
+           
           {selectedImageName && (
             <div style={styles.imageAttachedIndicator}>
               📷 {getDisplayImageName(selectedImageName)}
@@ -142,7 +154,7 @@ function CreatePostOverlay({ isOpen, onClose, onSubmit }) {
   );
 }
 
-function Card({ post, onLike, onComment, onRepost, onShare }) {
+function Card({ post, onLike, onComment, onRepost, onShare, isLast }) {
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
 
@@ -154,7 +166,10 @@ function Card({ post, onLike, onComment, onRepost, onShare }) {
   };
 
   return (
-    <div style={styles.card}>
+    <div style={{
+      ...styles.card,
+      marginBottom: isLast ? '100px' : '20px'
+    }}>
       {post.repostedFrom && (
         <div style={styles.repostHeader}>
           🔁 Reposted from {post.repostedFrom.author} • {post.repostedFrom.timeAgo}
@@ -169,13 +184,12 @@ function Card({ post, onLike, onComment, onRepost, onShare }) {
       </div>
 
       <div style={styles.postBody}>
-        <p>
-          {post.content}
-        </p>
-        {post.image && (
-          <img src={post.image} alt="Post" style={styles.postImage} />
-        )}
+        <TranslatedText text={post.content} />
       </div>
+
+      {post.image && (
+        <img src={post.image} alt="Post" style={styles.postImage} />
+      )}
 
       <div style={styles.postActions}>
         <button 
@@ -218,7 +232,9 @@ function Card({ post, onLike, onComment, onRepost, onShare }) {
                   <div style={styles.commentAvatar}>{comment.author.charAt(0)}</div>
                   <div style={styles.commentAuthor}>{comment.author}</div>
                 </div>
-                <div style={styles.commentContent}>{comment.content}</div>
+                <div style={styles.commentContent}>
+                  <TranslatedText text={comment.content} />
+                </div>
               </div>
             ))}
           </div>
@@ -372,35 +388,55 @@ function Home() {
   };
 
   return (
-    <div style={styles.page}>
-      {/* Post Input Bar */}
-      <div 
-        style={styles.inputBar}
-        onClick={() => setIsCreatePostOpen(true)}
-      >
-        <div style={styles.inputAvatar}>👤</div>
-        <div style={styles.inputBox}>Start by writing your post..</div>
-        <div style={styles.cameraIcon}>📷</div>
-      </div>
+    <div style={{
+      ...styles.page,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '100%',
+      maxWidth: '100%',
+      margin: '0 auto',
+      padding: 'var(--mobile-padding)',
+      paddingBottom: 'calc(var(--mobile-padding) + 800px)',
+      boxSizing: 'border-box'
+    }}>
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        maxWidth: '600px',
+        margin: '0 auto'
+      }}>
+        {/* The clickable input bar for creating a post */}
+        <div 
+          style={styles.inputBar}
+          onClick={() => setIsCreatePostOpen(true)}
+        >
+          <div style={styles.inputAvatar}>👤</div>
+          <div style={styles.inputBox}>
+            Start by writing your post..
+          </div>
+        </div>
 
-      {/* Create Post Overlay */}
-      <CreatePostOverlay
-        isOpen={isCreatePostOpen}
-        onClose={() => setIsCreatePostOpen(false)}
-        onSubmit={handlePostSubmit}
-      />
-
-      {/* Post Cards */}
-      {posts.map(post => (
-        <Card
-          key={post.id}
-          post={post}
-          onLike={handleLike}
-          onComment={handleComment}
-          onRepost={handleRepost}
-          onShare={handleShare}
+        {/* Create Post Overlay */}
+        <CreatePostOverlay
+          isOpen={isCreatePostOpen}
+          onClose={() => setIsCreatePostOpen(false)}
+          onSubmit={handlePostSubmit}
         />
-      ))}
+
+        {/* Post Cards */}
+        {posts.map((post, index) => (
+          <Card
+            key={post.id}
+            post={post}
+            onLike={handleLike}
+            onComment={handleComment}
+            onRepost={handleRepost}
+            onShare={handleShare}
+            isLast={index === posts.length - 1}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -408,12 +444,16 @@ function Home() {
 const styles = {
   page: {
     padding: 'var(--mobile-padding)',
+    paddingBottom: 'calc(var(--mobile-padding) + 800px)',
     fontFamily: 'sans-serif',
     minHeight: '100vh',
     backgroundColor: 'transparent',
-    maxWidth: 'var(--max-width)',
+    width: '100%',
+    maxWidth: '100%',
     margin: '0 auto',
     boxSizing: 'border-box',
+    overflowX: 'hidden',
+    position: 'relative',
   },
   inputBar: {
     display: 'flex',
@@ -423,7 +463,7 @@ const styles = {
     padding: '8px 12px',
     boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
     width: '100%',
-    maxWidth: '600px',
+    maxWidth: '100%',
     margin: '0 auto 30px auto',
     cursor: 'pointer',
   },
@@ -450,13 +490,7 @@ const styles = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  },
-  cameraIcon: {
-    fontSize: '20px',
-    color: '#4f6bed',
-    marginLeft: '12px',
     cursor: 'pointer',
-    flexShrink: 0,
   },
   card: {
     background: 'white',
@@ -465,10 +499,12 @@ const styles = {
     padding: '16px',
     boxShadow: '0 2px 6px rgba(0, 0, 0, 0.05)',
     width: '100%',
-    maxWidth: '600px',
+    maxWidth: '100%',
     margin: '0 auto',
-    marginTop: '30px',
+    marginTop: '20px',
+    marginBottom: '20px',
     boxSizing: 'border-box',
+    position: 'relative',
   },
   postHeader: {
     display: 'flex',
@@ -614,7 +650,7 @@ const styles = {
     zIndex: 1000,
     padding: '16px',
   },
-  overlayContent: {
+  modal: {
     backgroundColor: 'white',
     borderRadius: '8px',
     width: '100%',
@@ -624,7 +660,7 @@ const styles = {
     maxHeight: '90vh',
     overflowY: 'auto',
   },
-  overlayHeader: {
+  modalHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -635,7 +671,7 @@ const styles = {
     padding: '10px 0',
     zIndex: 1,
   },
-  overlayTitle: {
+  modalTitle: {
     margin: 0,
     fontSize: '1.5rem',
     color: '#333',
@@ -648,35 +684,19 @@ const styles = {
     color: '#666',
     padding: '4px',
   },
-  postTextarea: {
+  postInput: {
     width: '100%',
-    minHeight: '80px',
-    padding: '12px',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    fontSize: '16px',
+    minHeight: '40px',
+    maxHeight: '120px',
+    padding: '8px 12px',
+    border: 'none',
+    borderRadius: '8px',
     resize: 'vertical',
-    marginBottom: '16px',
-    boxSizing: 'border-box',
+    fontSize: '14px',
+    lineHeight: '1.4',
+    backgroundColor: 'transparent',
   },
-  overlayActions: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: '12px',
-  },
-  overlayIcons: {
-    display: 'flex',
-    gap: '16px',
-  },
-  icon: {
-    fontSize: '20px',
-    cursor: 'pointer',
-    color: '#666',
-    padding: '4px',
-  },
-  postButton: {
+  submitButton: {
     backgroundColor: '#4CAF50',
     color: 'white',
     border: 'none',
@@ -685,25 +705,6 @@ const styles = {
     cursor: 'pointer',
     fontSize: '16px',
     whiteSpace: 'nowrap',
-  },
-  emojiPicker: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(8, 1fr)',
-    gap: '8px',
-    padding: '12px',
-    backgroundColor: '#f8f8f8',
-    borderRadius: '4px',
-    marginTop: '12px',
-    maxHeight: '200px',
-    overflowY: 'auto',
-  },
-  emoji: {
-    fontSize: '24px',
-    cursor: 'pointer',
-    textAlign: 'center',
-    padding: '4px',
-    borderRadius: '4px',
-    transition: 'background-color 0.2s',
   },
   imageAttachedIndicator: {
     display: 'flex',
@@ -733,6 +734,58 @@ const styles = {
     borderRadius: '4px',
     marginTop: '12px',
     objectFit: 'contain',
+    display: 'block',
+    margin: '12px auto',
+  },
+  overlayActions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '16px',
+  },
+  overlayIcons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  },
+  icon: {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '18px',
+    color: 'gray',
+    padding: '0',
+  },
+  postButton: {
+    padding: '8px 24px',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    whiteSpace: 'nowrap',
+  },
+  emojiPicker: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '16px',
+    padding: '8px',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    backgroundColor: '#f9f9f9',
+  },
+  emoji: {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '24px',
+    color: 'gray',
+    padding: '0',
+  },
+  '&:last-child': {
+    marginBottom: '100px',
   },
 };
 

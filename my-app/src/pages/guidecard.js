@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TranslatedText } from './translate';
 
-const GuideCard = ({ title, status, description, condition, steps, toggleStatus, index }) => {
+const GuideCard = ({ title, status, description, description2, description3, description4, description5, description6, description7, description8, description9, previewText, condition, toggleStatus, index }) => {
   const [showModal, setShowModal] = useState(false);
 
   const getStatusColor = () => {
@@ -18,7 +18,7 @@ const GuideCard = ({ title, status, description, condition, steps, toggleStatus,
         backgroundColor: getStatusColor(),
       }}
     >
-      <TranslatedText text={status} />
+      <TranslatedText text={status.toString()} />
     </div>
   );
 
@@ -32,15 +32,10 @@ const GuideCard = ({ title, status, description, condition, steps, toggleStatus,
             toggleStatus(index);
           }} />
         </div>
-        <p style={styles.description}><TranslatedText text={description} /></p>
+        <p style={styles.description}><TranslatedText text={previewText || description} /></p>
         {condition && <p style={styles.condition}>
-          <TranslatedText text="Condition" />: <TranslatedText text={condition} />
+          <TranslatedText text={`Condition: ${condition}`} />
         </p>}
-        <ul style={styles.steps}>
-          {steps.map((step, idx) => (
-            <li key={idx}><TranslatedText text={step} /></li>
-          ))}
-        </ul>
         <p style={styles.more}><TranslatedText text="More" />...</p>
       </div>
 
@@ -51,14 +46,34 @@ const GuideCard = ({ title, status, description, condition, steps, toggleStatus,
               <h2 style={styles.modalTitle}><TranslatedText text={title} /></h2>
               <StatusButton onClick={() => toggleStatus(index)} />
             </div>
-            <p><TranslatedText text={description} /></p>
-            {condition && <p><strong><TranslatedText text="Condition" />:</strong> <TranslatedText text={condition} /></p>}
-            <h3><TranslatedText text="Steps" />:</h3>
-            <ul>
-              {steps.map((step, idx) => (
-                <li key={idx}><TranslatedText text={step} /></li>
-              ))}
-            </ul>
+            <p style={styles.modalDescription}><TranslatedText text={description} /></p>
+            {description2 && (
+              <p style={styles.modalDescription}><TranslatedText text={description2} /></p>
+            )}
+            {description3 && (
+              <p style={styles.modalDescription}><TranslatedText text={description3} /></p>
+            )}
+            {description4 && (
+              <p style={styles.modalDescription}><TranslatedText text={description4} /></p>
+            )}
+            {description5 && (
+              <p style={styles.modalDescription}><TranslatedText text={description5} /></p>
+            )}
+            {description6 && (
+              <p style={styles.modalDescription}><TranslatedText text={description6} /></p>
+            )}
+            {description7 && (
+              <p style={styles.modalDescription}><TranslatedText text={description7} /></p>
+            )}
+            {description8 && (
+              <p style={styles.modalDescription}><TranslatedText text={description8} /></p>
+            )}
+            {description9 && (
+              <p style={styles.modalDescription}><TranslatedText text={description9} /></p>
+            )}
+            {condition && <p><strong>
+              <TranslatedText text={`Condition: ${condition}`} />
+            </strong></p>}
             <button style={styles.closeButton} onClick={() => setShowModal(false)}>
               <TranslatedText text="Close" />
             </button>
@@ -99,16 +114,12 @@ const styles = {
   description: {
     margin: '0.5rem 0 0.25rem',
     fontSize: '0.9rem',
+    whiteSpace: 'pre-line',
   },
   condition: {
     fontSize: '0.8rem',
     fontStyle: 'italic',
     color: '#555',
-  },
-  steps: {
-    paddingLeft: '1.2rem',
-    margin: '0.5rem 0',
-    fontSize: '0.9rem',
   },
   more: {
     color: '#1e3a8a',
@@ -124,8 +135,11 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     zIndex: 1000,
+    overflowY: 'auto',
+    paddingTop: '5rem',
+    paddingBottom: '5rem',
   },
   modal: {
     backgroundColor: 'white',
@@ -133,8 +147,8 @@ const styles = {
     borderRadius: '10px',
     maxWidth: '500px',
     width: '90%',
-    maxHeight: '90vh',
-    overflowY: 'auto',
+    margin: '0 auto',
+    position: 'relative',
   },
   modalHeader: {
     display: 'flex',
@@ -145,6 +159,10 @@ const styles = {
   modalTitle: {
     margin: 0,
     fontSize: '1.5rem',
+  },
+  modalDescription: {
+    marginBottom: '1.5rem',
+    whiteSpace: 'pre-line',
   },
   closeButton: {
     marginTop: '1rem',

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTestScores } from '../context/TestScoreContext';
 import { useAuth } from '../context/AuthContext';
+import { TranslatedText } from './translate';
 
 function Tests() {
   const navigate = useNavigate();
@@ -124,9 +125,14 @@ function Tests() {
 
   const styles = {
     page: {
-      padding: '2rem',
-      maxWidth: '800px',
+      padding: 'var(--mobile-padding)',
+      paddingBottom: 'calc(var(--mobile-padding) + 400px)',
+      maxWidth: '100%',
       margin: '0 auto',
+      width: '100%',
+      boxSizing: 'border-box',
+      overflowX: 'hidden',
+      position: 'relative',
     },
     cardsContainer: {
       display: 'flex',
@@ -134,6 +140,7 @@ function Tests() {
       gap: '2rem',
       alignItems: 'center',
       marginTop: '2rem',
+      marginBottom: '0',
     },
     card: {
       backgroundColor: 'white',
@@ -248,47 +255,67 @@ function Tests() {
 
   return (
     <div style={styles.page}>
-      <h1 style={styles.mainTitle}>Language Tests</h1>
+      <h1 style={styles.mainTitle}><TranslatedText text="Language Tests" /></h1>
       <div style={styles.cardsContainer}>
-        {/* Overall Average Score Card */}
         <div style={styles.overallScoreCard}>
-          <h2 style={styles.overallScoreTitle}>Overall Average Score</h2>
+          <h2 style={styles.overallScoreTitle}>
+            <TranslatedText text="Overall Average Score" />
+          </h2>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>Previous Average: {averageScores.lastAverage}</p>
-            <p style={styles.scoreText}>Best Average: {averageScores.bestAverage}</p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Previous score:" /> {averageScores.lastAverage}
+            </p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Best score:" /> {averageScores.bestAverage}
+            </p>
             {renderStars(averageScores.bestAverage)}
           </div>
         </div>
 
         <div style={styles.card}>
           <div style={styles.header}>
-            <h2 style={styles.title}>English Tests</h2>
+            <h2 style={styles.title}><TranslatedText text="English Tests" /></h2>
             <button 
               style={styles.button}
-              onClick={() => navigate('/english-tests')}
+              onClick={() => { 
+                navigate('/english-tests');
+              }}
             >
-              Start Test
+              <TranslatedText text="Start Test" />
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>Previous score: {Math.round((readingScores.lastScore + writingScores.lastScore + listeningScores.lastScore) / 2.3)}</p>
-            <p style={styles.scoreText}>Best score: {Math.round((readingScores.bestScore + writingScores.bestScore + listeningScores.bestScore) / 2.3)}</p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Previous score:" /> {Math.round((readingScores.lastScore + writingScores.lastScore + listeningScores.lastScore) / 2.3)}
+            </p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Best score:" /> {Math.round((readingScores.bestScore + writingScores.bestScore + listeningScores.bestScore) / 2.3)}
+            </p>
             {renderStars(Math.round((readingScores.bestScore + writingScores.bestScore + listeningScores.bestScore) / 2.3))}
           </div>
         </div>
-        <div style={styles.card}>
+        <div style={{
+          ...styles.card,
+          marginBottom: '100px'
+        }}>
           <div style={styles.header}>
-            <h2 style={styles.title}>Dutch Tests</h2>
+            <h2 style={styles.title}><TranslatedText text="Dutch Tests" /></h2>
             <button 
               style={styles.button}
-              onClick={() => navigate('/dutch-tests')}
+              onClick={() => { 
+                navigate('/dutch-tests');
+              }}
             >
-              Start Test
+              <TranslatedText text="Start Test" />
             </button>
           </div>
           <div style={styles.scoreContainer}>
-            <p style={styles.scoreText}>Previous score: {dutchScores.lastScore}</p>
-            <p style={styles.scoreText}>Best score: {dutchScores.bestScore}</p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Previous score:" /> {dutchScores.lastScore}
+            </p>
+            <p style={styles.scoreText}>
+              <TranslatedText text="Best score:" /> {dutchScores.bestScore}
+            </p>
             {renderStars(dutchScores.bestScore)}
           </div>
         </div>
@@ -297,4 +324,4 @@ function Tests() {
   );
 }
 
-export default Tests; 
+export default Tests;

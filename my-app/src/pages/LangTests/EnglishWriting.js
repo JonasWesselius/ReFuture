@@ -43,7 +43,7 @@ function EnglishWriting() {
       localStorage.setItem('englishWritingLastScore', newScore.toString());
       
       // Update best score if new score is higher
-      if (newScore > currentBestScore) {
+    if (newScore > currentBestScore) {
         localStorage.setItem('englishWritingBestScore', newScore.toString());
       }
     }

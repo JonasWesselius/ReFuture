@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generatePDF } from '../services/pdfService';
+import { TranslatedText } from './translate';
 import './createCV.css';
 // Import template preview images
 import modernPreview from '../assets/cvs/modern1.png';
@@ -98,15 +99,15 @@ function CreateCV() {
   return (
     <div className="create-cv-page">
       <div className="create-cv-header">
-        <h1>Create New CV</h1>
+        <h1><TranslatedText text="Create New CV" /></h1>
       </div>
 
       <form onSubmit={handleSubmit} className="cv-form">
         <div className="form-section">
-          <h2>Personal Information</h2>
+          <h2><TranslatedText text="Personal Information" /></h2>
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="fullName">Full Name</label>
+              <label htmlFor="fullName"><TranslatedText text="Full Name" /></label>
               <input
                 type="text"
                 id="fullName"
@@ -118,7 +119,7 @@ function CreateCV() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email"><TranslatedText text="Email" /></label>
               <input
                 type="email"
                 id="email"
@@ -130,7 +131,7 @@ function CreateCV() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="phone">Phone</label>
+              <label htmlFor="phone"><TranslatedText text="Phone" /></label>
               <input
                 type="tel"
                 id="phone"
@@ -142,7 +143,7 @@ function CreateCV() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="address">Address</label>
+              <label htmlFor="address"><TranslatedText text="Address" /></label>
               <input
                 type="text"
                 id="address"
@@ -156,9 +157,9 @@ function CreateCV() {
         </div>
 
         <div className="form-section">
-          <h2>Professional Information</h2>
+          <h2><TranslatedText text="Professional Information" /></h2>
           <div className="form-group">
-            <label htmlFor="education">Education</label>
+            <label htmlFor="education"><TranslatedText text="Education" /></label>
             <textarea
               id="education"
               name="education"
@@ -171,7 +172,7 @@ function CreateCV() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="workExperience">Work Experience</label>
+            <label htmlFor="workExperience"><TranslatedText text="Work Experience" /></label>
             <textarea
               id="workExperience"
               name="workExperience"
@@ -184,7 +185,7 @@ function CreateCV() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="skills">Skills</label>
+            <label htmlFor="skills"><TranslatedText text="Skills" /></label>
             <textarea
               id="skills"
               name="skills"
@@ -197,7 +198,7 @@ function CreateCV() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="languages">Languages</label>
+            <label htmlFor="languages"><TranslatedText text="Languages" /></label>
             <textarea
               id="languages"
               name="languages"
@@ -211,7 +212,7 @@ function CreateCV() {
         </div>
 
         <div className="form-section">
-          <h2>Choose Template</h2>
+          <h2><TranslatedText text="Choose Template" /></h2>
           <div className="templates-grid">
             {templates.map(template => (
               <div
@@ -229,14 +230,14 @@ function CreateCV() {
 
         <div className="form-actions">
           <button type="button" onClick={() => navigate('/cv')} className="cancel-btn">
-            Cancel
+            <TranslatedText text="Cancel" />
           </button>
           <button 
             type="submit" 
             className="create-btn" 
             disabled={!formData.selectedTemplate || isSubmitting}
           >
-            {isSubmitting ? 'Creating...' : 'Create CV'}
+            <TranslatedText text={isSubmitting ? 'Creating...' : 'Create CV'} />
           </button>
         </div>
       </form>
@@ -244,4 +245,4 @@ function CreateCV() {
   );
 }
 
-export default CreateCV; 
+export default CreateCV;

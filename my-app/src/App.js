@@ -9,9 +9,9 @@ function App() {
   return (
     <LanguageProvider>
       <TestScoreProvider>
-        <Router>
-          <MainContentWrapper />
-        </Router>
+      <Router>
+        <MainContentWrapper />
+      </Router>
       </TestScoreProvider>
     </LanguageProvider>
   );

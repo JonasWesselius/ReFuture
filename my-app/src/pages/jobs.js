@@ -151,10 +151,9 @@ const sortOptions = [
 ];
 
 function Jobs() {
-  const [jobs, setJobs] = useState([...fakeJobs]); // Create a new array to ensure all jobs are included
+  const [jobs, setJobs] = useState([...fakeJobs]);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeMenu, setActiveMenu] = useState(null);
-  const [expandedJob, setExpandedJob] = useState(null);
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -164,9 +163,6 @@ function Jobs() {
     status: 'All'
   });
   const [sortBy, setSortBy] = useState('date-desc');
-
-  // Debug log to check number of jobs
-  console.log('Total jobs:', jobs.length);
 
   // Stats
   const savedJobs = jobs.filter(job => job.status === 'saved').length;
@@ -199,10 +195,6 @@ function Jobs() {
       })
     );
     setActiveMenu(null);
-  };
-
-  const toggleJobDescription = (jobId) => {
-    setExpandedJob(expandedJob === jobId ? null : jobId);
   };
 
   const handleFilterChange = (filterType, value) => {
@@ -278,9 +270,6 @@ function Jobs() {
       default:
         break;
     }
-
-    // Debug log to check number of jobs
-    console.log('Filtered jobs:', result.length);
 
     return result;
   }, [jobs, searchTerm, filters, sortBy]);
@@ -431,10 +420,14 @@ function Jobs() {
       </div>
 
       <div className="jobs-grid">
-        {filteredAndSortedJobs.map(job => (
-          <div key={job.id} className="job-card">
+        {filteredAndSortedJobs.map((job, index) => (
+          <div 
+            key={job.id} 
+            className="job-card"
+            style={index === filteredAndSortedJobs.length - 1 ? { marginBottom: '100px' } : {}}
+          >
             <div className="job-header">
-              <h2 className="job-title">{job.title}</h2>
+              <h3 className="job-title">{job.title}</h3>
               <div className="job-menu">
                 <button 
                   className="menu-button"
@@ -442,29 +435,19 @@ function Jobs() {
                 >
                   ⋮
                 </button>
-                <div className={`menu-dropdown ${activeMenu === job.id ? 'show' : ''}`}>
-                  <div 
-                    className="menu-item"
-                    onClick={() => handleJobAction(job.id, 'saved')}
-                  >
+                <div className={activeMenu === job.id ? "menu-dropdown show" : "menu-dropdown"}>
+                  <div className="menu-item" onClick={() => handleJobAction(job.id, 'saved')}>
                     {job.status === 'saved' ? 'Unsave' : 'Save'}
                   </div>
-                  <div 
-                    className="menu-item"
-                    onClick={() => handleJobAction(job.id, 'interested')}
-                  >
+                  <div className="menu-item" onClick={() => handleJobAction(job.id, 'interested')}>
                     {job.status === 'interested' ? 'Remove Application' : 'Mark as Interested'}
                   </div>
-                  <div 
-                    className="menu-item"
-                    onClick={() => handleJobAction(job.id, 'not-interested')}
-                  >
+                  <div className="menu-item" onClick={() => handleJobAction(job.id, 'not-interested')}>
                     Not Interested
                   </div>
                 </div>
               </div>
             </div>
-
             <div className="job-details">
               <span>{job.company}</span>
               <span>•</span>
@@ -474,17 +457,12 @@ function Jobs() {
               <span>•</span>
               <span>{job.salary}</span>
             </div>
-
             <ul className="selling-points">
-              {job.sellingPoints.map((point, index) => (
-                <li key={index}>{point}</li>
+              {job.sellingPoints.map((point, i) => (
+                <li key={i}>{point}</li>
               ))}
             </ul>
-
-            <button 
-              className="more-btn"
-              onClick={() => handleShowMore(job)}
-            >
+            <button className="more-btn" onClick={() => handleShowMore(job)}>
               Show more
               <span>▼</span>
             </button>

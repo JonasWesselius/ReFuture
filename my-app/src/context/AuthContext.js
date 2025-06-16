@@ -54,8 +54,8 @@ export const AuthProvider = ({ children }) => {
           return;
         }
 
-        setToken(storedToken);
-        setUser(JSON.parse(storedUser));
+      setToken(storedToken);
+      setUser(JSON.parse(storedUser));
       } catch (error) {
         console.error('Error verifying token:', error);
         logout();
