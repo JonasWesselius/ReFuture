@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTestScores } from '../context/TestScoreContext';
 import './signup.css'; 
 
 function Login() {
@@ -11,7 +12,8 @@ function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); 
+  const { login } = useAuth();
+  const { setUser } = useTestScores();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,9 +45,15 @@ function Login() {
       }
       
       login(data.token, data.user);
+s
       
       // Force a full page reload when navigating to profile
       window.location.href = '/profile';
+
+      setUser(data.user.id);
+
+      navigate('/');
+
     } catch (err) {
       setError(err.message);
     } finally {

@@ -58,6 +58,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    // Clear auth data
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     
@@ -76,6 +77,11 @@ export const AuthProvider = ({ children }) => {
     
     // Force a state update
     setRefreshTrigger(Date.now());
+
+    // Clear test scores for the current user
+    if (user && user.id) {
+      localStorage.removeItem(`testScores_${user.id}`);
+    }
   };
 
   const isAuthenticated = () => {
