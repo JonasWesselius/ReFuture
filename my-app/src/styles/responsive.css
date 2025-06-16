@@ -1,0 +1,205 @@
+/* Breakpoints */
+:root {
+  --mobile: 480px;
+  --tablet: 768px;
+  --desktop: 1024px;
+  --large-desktop: 1400px;
+}
+
+/* Base responsive styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+/* Responsive container widths */
+@media (min-width: 480px) {
+  .container {
+    max-width: 480px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 480px) {
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  p, li { font-size: 0.9rem; }
+}
+
+/* Responsive spacing */
+@media (max-width: 480px) {
+  .page {
+    padding: 1rem !important;
+  }
+  
+  .card {
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  .button {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Responsive grid system */
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 480px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 768px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Responsive flexbox utilities */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .flex-row-md {
+    flex-direction: row;
+  }
+}
+
+/* Responsive navigation */
+.nav {
+  padding: 1rem;
+}
+
+@media (max-width: 480px) {
+  .nav {
+    padding: 0.5rem;
+  }
+  
+  .nav-item {
+    padding: 0.5rem;
+  }
+}
+
+/* Responsive forms */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+  
+  input, textarea, select {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+}
+
+/* Responsive buttons */
+.button {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 480px) {
+  .button {
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive tables */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Responsive modals */
+.modal {
+  width: 90%;
+  max-width: 500px;
+  margin: 1rem auto;
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 95%;
+    margin: 0.5rem auto;
+  }
+}
+
+/* Touch-friendly elements */
+@media (max-width: 768px) {
+  button, 
+  [role="button"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input[type="radio"],
+  input[type="checkbox"] {
+    min-width: 24px;
+    min-height: 24px;
+  }
+}
+
+/* Safe area insets for modern mobile browsers */
+@supports (padding: max(0px)) {
+  .page {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+} 

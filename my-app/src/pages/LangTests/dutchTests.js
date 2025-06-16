@@ -136,7 +136,7 @@ function DutchTests() {
   };
 
   const handleBack = () => {
-    navigate('/');
+    navigate('/tests');
   };
 
   return (

@@ -46,6 +46,9 @@ function Login() {
       
       login(data.token, data.user);
 
+      // Clear posts from localStorage on successful login
+      localStorage.removeItem('refuturePosts');
+
       // Force a full page reload when navigating to profile
       window.location.href = '/profile';
 

@@ -8,9 +8,9 @@ function DutchReading() {
   const { updateScore } = useTestScores();
   const { isAuthenticated } = useAuth();
   const [answers, setAnswers] = useState({
-    multipleChoice: Array(5).fill(''),
-    trueFalse: Array(5).fill(''),
-    gapFill: Array(5).fill('')
+    task1: Array(3).fill(''),
+    task2: Array(3).fill(''),
+    task3: Array(3).fill('')
   });
 
   const correctAnswers = {
