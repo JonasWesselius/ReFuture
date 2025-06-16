@@ -1,4 +1,5 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
+import translationIcon from '../assets/translation.svg';
 
 const LanguageContext = createContext();
 
@@ -8,7 +9,41 @@ const languages = {
   ar: 'العربية',
   fr: 'Français',
   de: 'Deutsch',
-  es: 'Español'
+  es: 'Español',
+  fa: 'فارسی'
+};
+
+const manualTranslations = {
+  nl: {
+    "You haven't created any CVs yet." : "Je hebt nog geen CV aangemaakt.",
+    "Don't have an account? " : "Heeft u nog geen account? ",
+    "Create here" : "Hier aanmaken",
+    "Full Name" : "Voor- en achternaam",
+    "Available Jobs" : "Beschikbare banen",
+    "Tests" : "Toetsen",
+    "Welcome to the Tests page." : "Welkom op de pagina Toetsen.",
+    "Condition": "Voorwaarde",
+  },
+  fr: {
+
+  },
+    ar: {
+
+  },
+    de: {
+      "Create here" : "Erstellen Sie hier ein Konto",
+      "Guide" : "Führung",
+      "Tests" : "Testen",
+      "Your career development platform." : "Ihre Karriere Entwicklungsplattform.",
+      "You haven't created any CVs yet." : "Sie haben noch keinen Lebenslauf erstellt.",
+      "Available Jobs" : "Offene Stellen",
+  },
+    es: {
+
+  },
+  fa: {
+    
+  }
 };
 
 export const LanguageProvider = ({ children }) => {
@@ -32,8 +67,11 @@ export const useTranslation = () => useContext(LanguageContext);
 
 export async function translateText(text, targetLang) {
   try {
+    if (manualTranslations[targetLang]?.[text]) {
+      return manualTranslations[targetLang][text];
+    }
 
-    const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`);
+    const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}&de=538452@student.fontys.nl`);
     
     if (!response.ok) throw new Error('Translation failed');
     
@@ -82,15 +120,15 @@ function TranslateWidget() {
       <button 
         onClick={() => setShowDropdown(!showDropdown)}
         style={{
-          padding: '10px',
-          backgroundColor: '#007bff',
-          color: 'white',
+          padding: 0,
+          backgroundColor: 'transparent',
           border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          width: '40px',
+          height: '40px'
         }}
       >
-        {languages[language]}
+        <img src={translationIcon} alt="language" width="100%" height="100%" />
       </button>
       
       {showDropdown && (
@@ -119,10 +157,7 @@ function TranslateWidget() {
                 background: 'none',
                 textAlign: 'left',
                 cursor: 'pointer',
-                color: code === language ? '#007bff' : 'black',
-                ':hover': {
-                  backgroundColor: '#f0f0f0'
-                }
+                color: code === language ? '#007bff' : 'black'
               }}
             >
               {name}

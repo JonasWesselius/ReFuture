@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TranslateWidget, { TranslatedText } from './translate';
 import './signup.css';
 import { useAuth } from '../context/AuthContext';
 
@@ -88,7 +89,8 @@ function Signup() {
 
   return (
     <div className="signup-page">
-      <h2>Your Information</h2>
+      <TranslateWidget />
+      <h2><TranslatedText text="Your Information" /></h2>
       {error && <div className="error-message">{error}</div>}
       <form className="signup-form" onSubmit={handleSubmit}>
         <input
@@ -138,7 +140,11 @@ function Signup() {
             disabled={loading}
           />
           <label htmlFor="terms">
-            By checking this box, you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>. Please read them carefully before proceeding. Your use of this service constitutes acceptance of these terms.
+            <TranslatedText text="By checking this box, you agree to our " />
+            <a href="#"><TranslatedText text="Terms and Conditions" /></a>
+            <TranslatedText text=" and " />
+            <a href="#"><TranslatedText text="Privacy Policy" /></a>
+            <TranslatedText text=". Please read them carefully before proceeding. Your use of this service constitutes acceptance of these terms." />
           </label>
         </div>
         <button 
@@ -146,11 +152,11 @@ function Signup() {
           className="create-account-btn"
           disabled={loading}
         >
-          {loading ? 'Creating Account...' : 'Create account'}
+          <TranslatedText text={loading ? 'Creating Account...' : 'Create account'} />
         </button>
       </form>
       <div style={{ textAlign: 'center', marginTop: '8px' }}>
-        <span>Already have an account? </span>
+        <span><TranslatedText text="Already have an account? " /></span>
         <button
           type="button"
           onClick={goToLogin}
@@ -165,7 +171,7 @@ function Signup() {
           }}
           disabled={loading}
         >
-          Log in here
+          <TranslatedText text="Log in here" />
         </button>
       </div>
     </div>

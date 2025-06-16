@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+<<<<<<< Updated upstream
 import { useTestScores } from '../context/TestScoreContext';
+=======
+import TranslateWidget, { TranslatedText } from './translate';
+>>>>>>> Stashed changes
 import './signup.css'; 
 
 function Login() {
@@ -66,7 +70,8 @@ function Login() {
 
   return (
     <div className="signup-page">
-      <h2>Log In</h2>
+      <TranslateWidget />
+      <h2><TranslatedText text="Log In" /></h2>
       {error && <div className="error-message">{error}</div>}
       <form className="signup-form" onSubmit={handleSubmit}>
         <input
@@ -88,13 +93,18 @@ function Login() {
           disabled={loading}
         />
         <button type="submit" className="create-account-btn" style={{marginBottom: '10px'}} disabled={loading}>
-          {loading ? 'Logging in...' : 'Log in'}
+          <TranslatedText text={loading ? 'Logging in...' : 'Log in'} />
         </button>
       </form>
       <div style={{ textAlign: 'center', marginTop: '8px' }}>
-        <span>Don't have an account? </span>
-        <button type="button" onClick={goToSignup} style={{ color: '#5fd3a6', background: 'none', border: 'none', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', fontSize: '1rem' }} disabled={loading}>
-          Create here
+        <span><TranslatedText text="Don't have an account? " /></span>
+        <button 
+          type="button" 
+          onClick={goToSignup} 
+          style={{ color: '#5fd3a6', background: 'none', border: 'none', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', fontSize: '1rem' }} 
+          disabled={loading}
+        >
+          <TranslatedText text="Create here" />
         </button>
       </div>
     </div>

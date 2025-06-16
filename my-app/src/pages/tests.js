@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTestScores } from '../context/TestScoreContext';
 import { useAuth } from '../context/AuthContext';
+import TranslateWidget, { TranslatedText } from './translate';
 
 function Tests() {
   const navigate = useNavigate();
@@ -297,4 +298,4 @@ function Tests() {
   );
 }
 
-export default Tests; 
+export default Tests;

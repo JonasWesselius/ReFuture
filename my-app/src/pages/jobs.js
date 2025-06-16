@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from 'react';
 import './jobs.css';
 import searchIcon from '../assets/icons/search.png';
@@ -554,3 +555,19 @@ function Jobs() {
 }
 
 export default Jobs;
+=======
+import React from 'react';
+import TranslateWidget, { TranslatedText } from './translate';
+
+function Jobs() {
+  return (
+    <div className="jobs-page">
+      <TranslateWidget />
+      <h1><TranslatedText text="Available Jobs" /></h1>
+      <p><TranslatedText text="Browse through available job opportunities." /></p>
+    </div>
+  );
+}
+
+export default Jobs;
+>>>>>>> Stashed changes

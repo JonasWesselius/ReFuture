@@ -1,14 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+<<<<<<< Updated upstream
 import './navbar.css';
+=======
+import { TranslatedText } from '../pages/translate';
+>>>>>>> Stashed changes
 
 const Navbar = () => {
   const navItems = [
-    { id: 'home', label: 'Home', path: '/', icon: '/homeicon.png', activeIcon: '/homeicon-blue.png' },
-    { id: 'cv', label: 'My CV', path: '/cv', icon: '/texticon.png', activeIcon: '/texticon-blue.png' },
-    { id: 'jobs', label: 'Jobs', path: '/jobs', icon: '/briefcaseicon.png', activeIcon: '/briefcaseicon-blue.png' },
-    { id: 'guide', label: 'Guide', path: '/guide', icon: '/flagicon.png', activeIcon: '/flagicon-blue.png' },
-    { id: 'tests', label: 'Tests', path: '/tests', icon: '/bookicon.png', activeIcon: '/bookicon-blue.png' },
+    { id: 'home', label: <TranslatedText text="Home" />, path: '/', icon: '/homeicon.png', activeIcon: '/homeicon-blue.png' },
+    { id: 'cv', label: <TranslatedText text="My CV" />, path: '/cv', icon: '/texticon.png', activeIcon: '/texticon-blue.png' },
+    { id: 'jobs', label: <TranslatedText text="Jobs" />, path: '/jobs', icon: '/briefcaseicon.png', activeIcon: '/briefcaseicon-blue.png' },
+    { id: 'guide', label: <TranslatedText text="Guide" />, path: '/guide', icon: '/flagicon.png', activeIcon: '/flagicon-blue.png' },
+    { id: 'tests', label: <TranslatedText text="Tests" />, path: '/tests', icon: '/bookicon.png', activeIcon: '/bookicon-blue.png' },
   ];
 
   return (

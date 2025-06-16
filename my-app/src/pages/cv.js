@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import TranslateWidget, { TranslatedText } from './translate';
 import './cv.css';
 
 function CV() {
@@ -99,21 +100,20 @@ function CV() {
 
   return (
     <div className="cv-page">
+      <TranslateWidget />
       <div className="cv-header">
-        <h1>My CVs</h1>
+        <h1><TranslatedText text="My CVs" /></h1>
         <button className="create-cv-btn" onClick={handleCreateCV}>
           +
-          <span>Create</span>
+          <span><TranslatedText text="Create" /></span>
         </button>
       </div>
       
       <div className="cv-grid">
-
         {sortedCVs.length === 0 ? (
-
           <div className="no-cvs">
-            <p>You haven't created any CVs yet.</p>
-            <p>Click the "Create New CV" button to get started!</p>
+            <p><TranslatedText text="You haven't created any CVs yet." /></p>
+            <p><TranslatedText text='Click the "Create New CV" button to get started!' /></p>
           </div>
         ) : (
           sortedCVs.map((cv, index) => (
@@ -166,4 +166,4 @@ function CV() {
   );
 }
 
-export default CV;    
+export default CV;
