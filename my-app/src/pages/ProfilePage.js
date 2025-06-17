@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from './translate';
 import SelectionModal from '../components/SelectionModal';
 import './ProfilePage.css';
 
@@ -118,6 +119,7 @@ function ProfileEditModal({ profile, onSave, onClose }) {
 function ProfilePage() {
   const navigate = useNavigate();
   const { token, user, logout } = useAuth();
+  const { language, changeLanguage } = useTranslation();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -137,6 +139,17 @@ function ProfilePage() {
   const memoizedExperience = useMemo(() => profile?.experience || [], [profile]);
   const memoizedTestScores = useMemo(() => profile?.testScores || [], [profile]);
   const memoizedCvs = useMemo(() => profile?.cvs || [], [profile]);
+
+  // Language options
+  const languages = {
+    en: 'English',
+    nl: 'Nederlands',
+    ar: 'العربية',
+    fr: 'Français',
+    de: 'Deutsch',
+    es: 'Español',
+    fa: 'فارسی'
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -627,8 +640,26 @@ function ProfilePage() {
         <div className="settings-modal" onClick={handleSettingsClose}>
           <div className="settings-content" onClick={(e) => e.stopPropagation()}>
             <h2>Settings</h2>
-            <button onClick={handleLogout}>Logout</button>
-            <button onClick={handleSettingsClose}>Close</button>
+            
+            <div className="settings-section">
+              <h3>Language</h3>
+              <div className="language-options">
+                {Object.entries(languages).map(([code, name]) => (
+                  <button
+                    key={code}
+                    className={`language-button ${language === code ? 'active' : ''}`}
+                    onClick={() => changeLanguage(code)}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="settings-actions">
+              <button onClick={handleLogout} className="logout-button">Logout</button>
+              <button onClick={handleSettingsClose} className="close-button">Close</button>
+            </div>
           </div>
         </div>
       )}

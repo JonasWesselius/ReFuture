@@ -203,38 +203,92 @@
   font-size: 24px;
 }
 
-.settings-content button {
+.settings-section {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.settings-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.settings-section h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.language-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.language-button {
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.language-button:hover {
+  border-color: #6a5acd;
+  background-color: #f8f7ff;
+}
+
+.language-button.active {
+  border-color: #6a5acd;
+  background-color: #6a5acd;
+  color: white;
+}
+
+.settings-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.settings-actions button {
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
   border: none;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  margin: 0;
 }
 
-.settings-content button:first-of-type {
-  background-color: #dc3545;
-  color: white;
+.logout-button {
+  background-color: #dc3545 !important;
+  color: white !important;
 }
 
-.settings-content button:first-of-type:hover {
-  background-color: #c82333;
+.logout-button:hover {
+  background-color: #c82333 !important;
   transform: translateY(-1px);
 }
 
-.settings-content button:last-of-type {
-  background-color: #6a5acd;
-  color: white;
+.close-button {
+  background-color: #6a5acd !important;
+  color: white !important;
 }
 
-.settings-content button:last-of-type:hover {
-  background-color: #5a4eb8;
+.close-button:hover {
+  background-color: #5a4eb8 !important;
   transform: translateY(-1px);
 }
 
-.settings-content button:active {
+.settings-actions button:active {
   transform: translateY(0);
 }
 
@@ -375,4 +429,11 @@
 
 .modal-buttons button:active {
   transform: translateY(0);
+}
+
+/* Hide translate widget on profile page */
+body:has(.profile-page) div[style*="position: fixed"][style*="right: 70px"],
+body:has(.profile-page) div[style*="position: fixed"][style*="right: 80px"],
+body:has(.profile-page) div[style*="zIndex: 1001"] {
+  display: none !important;
 } 
