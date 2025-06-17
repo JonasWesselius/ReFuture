@@ -1,8 +1,10 @@
 .home-page {
-  padding: 2rem;
-  max-width: 1200px;
+  padding: 1rem;
+  max-width: 1400px;
   margin: 0 auto;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .home-page h1 {
