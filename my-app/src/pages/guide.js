@@ -123,6 +123,7 @@ const styles = {
   header: {
     fontSize: '1.5rem',
     marginBottom: '0.5rem',
+    textAlign: 'center',
   },
   progressText: {
     fontSize: '0.9rem',
