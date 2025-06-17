@@ -80,26 +80,52 @@
   position: relative;
 }
 
-.profile-section h3 {
-  color: #333;
-  margin-top: 0;
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
 }
 
-.profile-section .add-button,
-.profile-section .edit-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+.profile-section h3 {
+  margin-bottom: 0;
+  color: #333;
+}
+
+.section-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.add-button,
+.edit-button {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
-.profile-section .add-button {
-  right: 50px; 
+.add-button img,
+.edit-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.add-button:hover,
+.edit-button:hover {
+  transform: scale(1.1);
+}
+
+/* Ensure old conflicting styles are removed */
+.section-actions,
+.profile-section h3 .add-button,
+.profile-section h3 .edit-button {
+  display: none;
 }
 
 /* Profile icon placeholder */

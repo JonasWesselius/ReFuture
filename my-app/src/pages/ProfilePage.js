@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import SelectionModal from '../components/SelectionModal';
@@ -16,6 +16,12 @@ function ProfilePage() {
     title: '',
     existingItems: []
   });
+
+  // Memoize profile data arrays to prevent unnecessary re-renders of SelectionModal
+  const memoizedLanguages = useMemo(() => profile?.languages || [], [profile]);
+  const memoizedExperience = useMemo(() => profile?.experience || [], [profile]);
+  const memoizedTestScores = useMemo(() => profile?.testScores || [], [profile]);
+  const memoizedCvs = useMemo(() => profile?.cvs || [], [profile]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -38,7 +44,13 @@ function ProfilePage() {
         }
 
         const data = await response.json();
-        setProfile(data);
+
+        // Only update profile state if the data has actually changed
+        if (JSON.stringify(profile) !== JSON.stringify(data)) {
+          setProfile(data);
+          console.log('Fetched profile data:', data);
+          console.log('Languages in profile:', data.languages);
+        }
       } catch (err) {
         setError(err.message);
         setProfile(null);
@@ -55,23 +67,45 @@ function ProfilePage() {
   };
 
   const openModal = (type) => {
+    console.log(`Attempting to open modal for type: ${type}`);
     let title = '';
     let existingItems = [];
 
     switch (type) {
       case 'languages':
         title = 'Add Languages';
-        existingItems = profile?.languages?.map(lang => lang.name) || [];
+        existingItems = [];
+        break;
+      case 'editLanguages':
+        title = 'Edit Languages';
+        existingItems = memoizedLanguages;
         break;
       case 'experience':
         title = 'Add Experience';
-        existingItems = profile?.experience?.map(exp => exp.title) || [];
+        existingItems = [];
+        break;
+      case 'editExperience':
+        title = 'Edit Experience';
+        existingItems = memoizedExperience;
         break;
       case 'testScores':
         title = 'Add Test Scores';
-        existingItems = profile?.testScores?.map(score => score.language) || [];
+        existingItems = [];
+        break;
+      case 'editTestScores':
+        title = 'Edit Test Scores';
+        existingItems = memoizedTestScores;
+        break;
+      case 'cvs':
+        title = 'Add CVs';
+        existingItems = [];
+        break;
+      case 'editCVs':
+        title = 'Edit CVs';
+        existingItems = memoizedCvs;
         break;
       default:
+        console.warn(`Unknown modal type: ${type}`);
         return;
     }
 
@@ -81,6 +115,7 @@ function ProfilePage() {
       title,
       existingItems
     });
+    console.log('Modal config after update:', { isOpen: true, type, title, existingItems });
   };
 
   const handleModalSave = async (selectedItems) => {
@@ -100,36 +135,61 @@ function ProfilePage() {
           const experienceItem = {
             title: selectedItem.title || '',
             company: selectedItem.company || '',
-            startDate: selectedItem.startDate ? new Date(selectedItem.startDate) : new Date(),
-            endDate: selectedItem.endDate ? new Date(selectedItem.endDate) : null,
+            startDate: selectedItem.startDate || new Date().toISOString(),
+            endDate: selectedItem.endDate || null,
             location: selectedItem.location || '',
             type: selectedItem.type || 'Full-time',
             description: selectedItem.description || ''
           };
 
+          // Send just the new experience item - backend will handle appending
           updateData = { experience: [experienceItem] };
           break;
 
+        case 'editExperience':
+          updateData = { experience: selectedItems };
+          break;
+
         case 'languages':
-          updateData = {
-            languages: selectedItems.map(lang => ({
-              name: lang.name,
-              proficiency: lang.proficiency || 'Intermediate',
-              isLearning: lang.isLearning || false
-            }))
-          };
+          const formattedLanguages = selectedItems.map(lang => ({
+            name: lang.name,
+            proficiency: lang.proficiency || 'Intermediate',
+            isLearning: lang.isLearning || false
+          }));
+          
+          // Append to existing languages array
+          const currentLanguages = profile.languages || [];
+          updateData = { languages: [...currentLanguages, ...formattedLanguages] };
+          break;
+
+        case 'editLanguages':
+          updateData = { languages: selectedItems };
           break;
 
         case 'testScores':
-          updateData = {
-            testScores: selectedItems.map(score => ({
-              language: score.language,
-              score: Number(score.score) || 0,
-              maxScore: Number(score.maxScore) || 100,
-              stars: Number(score.stars) || 0,
-              date: score.date ? new Date(score.date) : new Date()
-            }))
-          };
+          const formattedTestScores = selectedItems.map(score => ({
+            language: score.language || score.name,
+            score: Number(score.score) || 0,
+            maxScore: Number(score.maxScore) || 100,
+            stars: Number(score.stars) || 0,
+            date: score.date || new Date().toISOString()
+          }));
+          
+          // Append to existing test scores array
+          const currentTestScores = profile.testScores || [];
+          updateData = { testScores: [...currentTestScores, ...formattedTestScores] };
+          break;
+
+        case 'editTestScores':
+          updateData = { testScores: selectedItems };
+          break;
+
+        case 'cvs':
+          updateData = { cvs: selectedItems }; 
+          break;
+
+        case 'editCVs':
+          updateData = { cvs: selectedItems };
           break;
 
         default:
@@ -168,6 +228,10 @@ function ProfilePage() {
     }
   };
 
+  const handleModalRemove = async (itemToRemove) => {
+    console.log('Remove function called but not used - SelectionModal handles removal internally');
+  };
+
   if (loading) {
     return <div className="profile-page">Loading...</div>;
   }
@@ -201,10 +265,17 @@ function ProfilePage() {
 
         {/* Experience Section */}
         <div className="profile-section">
-          <h3>Experience</h3>
-          <button className="add-button" onClick={() => openModal('experience')}>
-            <img src="/add-icon.png" alt="Add" style={{ width: '20px', height: '20px' }} />
-          </button>
+          <div className="section-header">
+            <h3>Experience</h3>
+            <div className="section-buttons">
+              <button className="edit-button" onClick={() => openModal('editExperience')}>
+                <img src="/edit-icon.png" alt="Edit" style={{ width: '20px', height: '20px' }} />
+              </button>
+              <button className="add-button" onClick={() => openModal('experience')}>
+                <img src="/add-icon.png" alt="Add" style={{ width: '20px', height: '20px' }} />
+              </button>
+            </div>
+          </div>
           {profile.experience && profile.experience.map((exp, index) => (
             <div key={index} className="experience-item">
               <p>{exp.title}</p>
@@ -218,10 +289,17 @@ function ProfilePage() {
 
         {/* Languages Section */}
         <div className="profile-section">
-          <h3>Languages</h3>
-          <button className="add-button" onClick={() => openModal('languages')}>
-            <img src="/add-icon.png" alt="Add" style={{ width: '20px', height: '20px' }} />
-          </button>
+          <div className="section-header">
+            <h3>Languages</h3>
+            <div className="section-buttons">
+              <button className="edit-button" onClick={() => openModal('editLanguages')}>
+                <img src="/edit-icon.png" alt="Edit" style={{ width: '20px', height: '20px' }} />
+              </button>
+              <button className="add-button" onClick={() => openModal('languages')}>
+                <img src="/add-icon.png" alt="Add" style={{ width: '20px', height: '20px' }} />
+              </button>
+            </div>
+          </div>
           {profile.languages && profile.languages.map((lang, index) => (
             <div key={index} className="language-item">
               <p>{lang.name} {lang.isLearning ? '(Learning)' : ''}</p>
@@ -232,10 +310,17 @@ function ProfilePage() {
 
         {/* Test Scores Section */}
         <div className="profile-section">
-          <h3>Test Scores</h3>
-          <button className="add-button" onClick={() => openModal('testScores')}>
-            <img src="/add-icon.png" alt="Add" style={{ width: '20px', height: '20px' }} />
-          </button>
+          <div className="section-header">
+            <h3>Test Scores</h3>
+            <div className="section-buttons">
+              <button className="edit-button" onClick={() => openModal('editTestScores')}>
+                <img src="/edit-icon.png" alt="Edit" style={{ width: '20px', height: '20px' }} />
+              </button>
+              <button className="add-button" onClick={() => openModal('testScores')}>
+                <img src="/add-icon.png" alt="Add" style={{ width: '20px', height: '20px' }} />
+              </button>
+            </div>
+          </div>
           {profile.testScores && profile.testScores.map((score, index) => (
             <div key={index} className="test-score-item">
               <p>{score.language}: {score.score}/{score.maxScore} ({'⭐'.repeat(score.stars)}{'☆'.repeat(5-score.stars)})</p>
@@ -246,10 +331,17 @@ function ProfilePage() {
 
         {/* CVs Section */}
         <div className="profile-section">
-          <h3>CVs</h3>
-          <button className="add-button">
-            <img src="/add-icon.png" alt="Add" style={{ width: '20px', height: '20px' }} />
-          </button>
+          <div className="section-header">
+            <h3>CVs</h3>
+            <div className="section-buttons">
+              <button className="edit-button" onClick={() => openModal('editCVs')}>
+                <img src="/edit-icon.png" alt="Edit" style={{ width: '20px', height: '20px' }} />
+              </button>
+              <button className="add-button" onClick={() => openModal('cvs')}>
+                <img src="/add-icon.png" alt="Add" style={{ width: '20px', height: '20px' }} />
+              </button>
+            </div>
+          </div>
           {profile.cvs && profile.cvs.map((cv, index) => (
             <div key={index} className="cv-item">
               <p>{cv.name}</p>
@@ -260,14 +352,17 @@ function ProfilePage() {
         </div>
       </div>
 
-      <SelectionModal
-        isOpen={modalConfig.isOpen}
-        onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
-        title={modalConfig.title}
-        type={modalConfig.type}
-        existingItems={modalConfig.existingItems}
-        onSave={handleModalSave}
-      />
+      {modalConfig.isOpen && (
+        <SelectionModal
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          type={modalConfig.type}
+          existingItems={modalConfig.existingItems}
+          onClose={() => setModalConfig({ ...modalConfig, isOpen: false })}
+          onSave={handleModalSave}
+          onRemove={handleModalRemove}
+        />
+      )}
     </div>
   );
 }

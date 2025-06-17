@@ -1,6 +1,6 @@
 .signup-page {
   max-width: 330px;
-  margin: 40px auto;
+  margin: 100px auto;
   margin-bottom: calc(40px + 70px); /* Adjusted for fixed navbar */
   background: rgba(255, 255, 255, 1);
   border-radius: 18px;

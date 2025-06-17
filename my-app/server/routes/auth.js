@@ -37,90 +37,97 @@ router.put('/profile', async (req, res) => {
     
     console.log('Received update data:', JSON.stringify(req.body, null, 2));
 
-    // Update allowed fields
+    // Get the current user first
+    const currentUser = await User.findById(decoded.userId);
+    if (!currentUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Prepare the update object
+    const updateData = {};
     const allowedUpdates = ['name', 'countryOfOrigin', 'location', 'experience', 'languages', 'testScores', 'cvs'];
-    const updates = Object.keys(req.body).filter(key => allowedUpdates.includes(key));
     
-    console.log('Allowed updates:', updates);
+    for (const key of Object.keys(req.body)) {
+      if (allowedUpdates.includes(key)) {
+        if (key === 'experience' && Array.isArray(req.body[key])) {
+          console.log('Processing experience update...');
+          
+          // Validate and format experience data
+          const newExperiences = req.body[key].map(exp => {
+            // Validate required fields
+            if (!exp.title || !exp.company) {
+              throw new Error('Experience must have title and company');
+            }
+            
+            return {
+              title: String(exp.title).trim(),
+              company: String(exp.company).trim(),
+              startDate: exp.startDate ? new Date(exp.startDate) : new Date(),
+              endDate: exp.endDate ? new Date(exp.endDate) : null,
+              location: String(exp.location || '').trim(),
+              type: String(exp.type || 'Full-time').trim(),
+              description: String(exp.description || '').trim()
+            };
+          });
 
-    let updateData = {};
-    for (const update of updates) {
-      console.log(`Processing update for ${update}:`, JSON.stringify(req.body[update], null, 2));
-      
-      if (update === 'experience' && Array.isArray(req.body[update])) {
-        // Create new experience item with proper formatting
-        const newExperience = req.body[update][0]; // Only take the first item
-        const formattedExp = {
-          title: String(newExperience.title || ''),
-          company: String(newExperience.company || ''),
-          startDate: newExperience.startDate ? new Date(newExperience.startDate) : new Date(),
-          endDate: newExperience.endDate ? new Date(newExperience.endDate) : null,
-          location: String(newExperience.location || ''),
-          type: String(newExperience.type || 'Full-time'),
-          description: String(newExperience.description || '')
-        };
-        console.log('Formatted experience item:', JSON.stringify(formattedExp, null, 2));
-
-        // Use $push to add the new experience item
-        updateData.$push = { experience: formattedExp };
-      } else if (update === 'testScores' && Array.isArray(req.body[update])) {
-        const newTestScores = req.body[update].map(score => ({
-          language: String(score.language || ''),
-          score: Number(score.score || 0),
-          maxScore: Number(score.maxScore || 100),
-          stars: Number(score.stars || 0),
-          date: score.date ? new Date(score.date) : new Date()
-        }));
-
-        if (!updateData.$push) {
-          updateData.$push = {};
+          console.log('Formatted new experiences:', JSON.stringify(newExperiences, null, 2));
+          
+          // Append to existing experience
+          updateData.experience = [...(currentUser.experience || []), ...newExperiences];
+          
+        } else if (key === 'languages' && Array.isArray(req.body[key])) {
+          // Replace languages entirely
+          updateData.languages = req.body[key].map(lang => ({
+            name: String(lang.name || '').trim(),
+            proficiency: String(lang.proficiency || 'Beginner').trim(),
+            isLearning: Boolean(lang.isLearning)
+          }));
+          
+        } else if (key === 'testScores' && Array.isArray(req.body[key])) {
+          // Replace test scores entirely
+          updateData.testScores = req.body[key].map(score => ({
+            language: String(score.language || '').trim(),
+            score: Number(score.score) || 0,
+            maxScore: Number(score.maxScore) || 100,
+            stars: Number(score.stars) || 0,
+            date: score.date ? new Date(score.date) : new Date()
+          }));
+          
+        } else {
+          // For other fields, update directly
+          updateData[key] = req.body[key];
         }
-        updateData.$push.testScores = { $each: newTestScores };
-      } else if (update === 'languages' && Array.isArray(req.body[update])) {
-        const newLanguages = req.body[update].map(lang => ({
-          name: String(lang.name || ''),
-          proficiency: String(lang.proficiency || 'Intermediate'),
-          isLearning: Boolean(lang.isLearning || false)
-        }));
-
-        if (!updateData.$push) {
-          updateData.$push = {};
-        }
-        updateData.$push.languages = { $each: newLanguages };
-      } else {
-        updateData[update] = req.body[update];
       }
     }
 
     console.log('Final update data:', JSON.stringify(updateData, null, 2));
 
-    try {
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: decoded.userId },
-        updateData,
-        { new: true, runValidators: true }
-      );
-
-      if (!updatedUser) {
-        return res.status(404).json({ message: 'User not found' });
+    // Use findByIdAndUpdate with proper validation
+    const updatedUser = await User.findByIdAndUpdate(
+      decoded.userId,
+      { $set: updateData },
+      { 
+        new: true, 
+        runValidators: true,
+        select: '-password'
       }
+    );
 
-      console.log('Profile updated successfully');
-      res.json({ message: 'Profile updated successfully', user: updatedUser });
-    } catch (updateError) {
-      console.error('Error updating user:', updateError);
-      res.status(400).json({ 
-        message: 'Error updating profile', 
-        error: updateError.message,
-        details: updateError.errors 
-      });
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
     }
+
+    console.log('Profile updated successfully');
+    res.json({ 
+      message: 'Profile updated successfully', 
+      user: updatedUser 
+    });
+
   } catch (error) {
     console.error('Error updating profile:', error);
     res.status(500).json({ 
       message: 'Error updating profile', 
-      error: error.message,
-      stack: error.stack 
+      error: error.message
     });
   }
 });
