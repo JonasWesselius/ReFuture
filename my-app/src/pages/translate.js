@@ -105,12 +105,10 @@ const manualTranslations = {
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => localStorage.getItem('language') || 'en');
-  const [showLanguages, setShowLanguages] = useState(false);
 
   const changeLanguage = (lang) => {
     setLanguage(lang);
     localStorage.setItem('language', lang);
-    setShowLanguages(false);
   };
 
   return (
@@ -130,13 +128,24 @@ export async function translateText(text, targetLang) {
 
     const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}&de=538452@student.fontys.nl`);
     
-    if (!response.ok) throw new Error('Translation failed');
-    
     const data = await response.json();
-    console.log('Translation response:', data);
-    return data.responseData.translatedText;
+
+    if (data.responseStatus !== 200) {
+        console.error('translateText: API returned non-200 status:', data.responseStatus, 'Details:', data.responseDetails);
+        return text;
+    }
+
+    if (data.responseData && data.responseData.translatedText && data.responseData.translatedText !== 'PLEASE SELECT TWO DISTINCT LANGUAGES') {
+      return data.responseData.translatedText;
+    } else if (data.responseDetails && data.responseDetails !== 'PLEASE SELECT TWO DISTINCT LANGUAGES') {
+      console.warn('translateText: API returned an error detail, but status was 200:', data.responseDetails);
+      return data.responseDetails;
+    } else {
+      console.warn('translateText: API returned an irrelevant or error message (even with 200 status). Falling back to original text.', data);
+      return text;
+    }
   } catch (error) {
-    console.error('Translation error:', error);
+    console.error('translateText: Translation error caught:', error);
     return text;
   }
 }
@@ -168,8 +177,8 @@ export function TranslatedText({ text }) {
   return translated || text;
 }
 
-function TranslateWidget() {
-  const { language, changeLanguage } = useTranslation();
+export const TranslateWidget = () => {
+  const { language, setLanguage } = useTranslation();
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
@@ -182,53 +191,46 @@ function TranslateWidget() {
       <button 
         onClick={() => setShowDropdown(!showDropdown)}
         style={{
-          padding: 0,
-          backgroundColor: 'transparent',
-          border: 'none',
+          position: 'fixed',
+          top: '20px',
+          right: '70px',
+          zIndex: 1001,
           cursor: 'pointer',
-          width: '40px',
-          height: '40px'
+          background: 'none',
+          border: 'none',
         }}
       >
-        <img src={translationIcon} alt="language" width="100%" height="100%" />
+        <img src={translationIcon} alt="language" style={{ width: '30px', height: '30px' }} />
       </button>
-      
       {showDropdown && (
         <div style={{
-          position: 'absolute',
-          top: '100%',
-          right: 0,
-          backgroundColor: 'white',
-          border: '1px solid #ddd',
-          borderRadius: '5px',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-          marginTop: '5px'
+          position: 'fixed',
+          top: '70px',
+          right: '20px',
+          backgroundColor: '#fff',
+          border: '1px solid #ccc',
+          borderRadius: '4px',
+          padding: '10px',
+          zIndex: 1001
         }}>
           {Object.entries(languages).map(([code, name]) => (
-            <button
+            <div
               key={code}
               onClick={() => {
-                changeLanguage(code);
+                setLanguage(code);
                 setShowDropdown(false);
               }}
               style={{
-                display: 'block',
-                width: '100%',
-                padding: '8px 16px',
-                border: 'none',
-                background: 'none',
-                textAlign: 'left',
+                padding: '5px 10px',
                 cursor: 'pointer',
-                color: code === language ? '#007bff' : 'black'
+                backgroundColor: language === code ? '#f0f0f0' : 'transparent'
               }}
             >
               {name}
-            </button>
+            </div>
           ))}
         </div>
       )}
     </div>
   );
-}
-
-export default TranslateWidget;
+};

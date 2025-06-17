@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TranslateWidget, { TranslatedText } from '../translate';
+import { TranslatedText } from '../translate';
 
 function DutchTests() {
   const navigate = useNavigate();
@@ -137,12 +137,11 @@ function DutchTests() {
   };
 
   const handleBack = () => {
-    navigate('/');
+    navigate('/tests');
   };
 
   return (
     <div style={styles.page}>
-      <TranslateWidget />
       <button onClick={handleBack} style={styles.backButton}>
         <TranslatedText text="Back to Main Tests" />
       </button>
@@ -151,14 +150,17 @@ function DutchTests() {
         <div style={styles.card}>
           <div style={styles.header}>
             <h2 style={styles.title}><TranslatedText text="Reading" /></h2>
+           
             <button 
               style={styles.button}
               onClick={() => navigate('/dutch-tests/reading')}
             >
               <TranslatedText text="Start Test" />
+              
             </button>
           </div>
           <div style={styles.scoreContainer}>
+            
             <p style={styles.scoreText}>
               <TranslatedText text="Previous score:" /> {readingScores.lastScore}
             </p>
@@ -171,14 +173,17 @@ function DutchTests() {
         <div style={styles.card}>
           <div style={styles.header}>
             <h2 style={styles.title}><TranslatedText text="Writing" /></h2>
+            
             <button 
               style={styles.button}
               onClick={() => navigate('/dutch-tests/writing')}
             >
               <TranslatedText text="Start Test" />
+              
             </button>
           </div>
           <div style={styles.scoreContainer}>
+            
             <p style={styles.scoreText}>
               <TranslatedText text="Previous score:" /> {writingScores.lastScore}
             </p>

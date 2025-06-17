@@ -3,7 +3,7 @@ import './jobs.css';
 import searchIcon from '../assets/icons/search.png';
 import filterIcon from '../assets/icons/filter.png';
 import sortIcon from '../assets/icons/sort.png';
-import TranslateWidget, { TranslatedText } from './translate';
+import { TranslatedText, TranslateWidget } from './translate';
 
 // Fake data for jobs
 const fakeJobs = [
@@ -152,10 +152,9 @@ const sortOptions = [
 ];
 
 function Jobs() {
-  const [jobs, setJobs] = useState([...fakeJobs]); // Create a new array to ensure all jobs are included
+  const [jobs, setJobs] = useState([...fakeJobs]);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeMenu, setActiveMenu] = useState(null);
-  const [expandedJob, setExpandedJob] = useState(null);
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -165,9 +164,6 @@ function Jobs() {
     status: 'All'
   });
   const [sortBy, setSortBy] = useState('date-desc');
-
-  // Debug log to check number of jobs
-  console.log('Total jobs:', jobs.length);
 
   // Stats
   const savedJobs = jobs.filter(job => job.status === 'saved').length;
@@ -200,10 +196,6 @@ function Jobs() {
       })
     );
     setActiveMenu(null);
-  };
-
-  const toggleJobDescription = (jobId) => {
-    setExpandedJob(expandedJob === jobId ? null : jobId);
   };
 
   const handleFilterChange = (filterType, value) => {
@@ -279,9 +271,6 @@ function Jobs() {
       default:
         break;
     }
-
-    // Debug log to check number of jobs
-    console.log('Filtered jobs:', result.length);
 
     return result;
   }, [jobs, searchTerm, filters, sortBy]);
@@ -433,8 +422,12 @@ function Jobs() {
       </div>
 
       <div className="jobs-grid">
-        {filteredAndSortedJobs.map(job => (
-          <div key={job.id} className="job-card">
+        {filteredAndSortedJobs.map((job, index) => (
+          <div 
+            key={job.id} 
+            className="job-card"
+            style={index === filteredAndSortedJobs.length - 1 ? { marginBottom: '100px' } : {}}
+          >
             <div className="job-header">
               <h2 className="job-title"><TranslatedText text={job.title} /></h2>
               <div className="job-menu">
@@ -466,7 +459,6 @@ function Jobs() {
                 </div>
               </div>
             </div>
-
             <div className="job-details">
               <span><TranslatedText text={job.company} /></span>
               <span>•</span>
@@ -476,13 +468,11 @@ function Jobs() {
               <span>•</span>
               <span>{job.salary}</span>
             </div>
-
             <ul className="selling-points">
               {job.sellingPoints.map((point, index) => (
                 <li key={index}><TranslatedText text={point} /></li>
               ))}
             </ul>
-
             <button 
               className="more-btn"
               onClick={() => handleShowMore(job)}

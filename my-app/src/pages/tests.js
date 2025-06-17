@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTestScores } from '../context/TestScoreContext';
 import { useAuth } from '../context/AuthContext';
-import TranslateWidget, { TranslatedText } from './translate';
+import { TranslatedText } from './translate';
 
 function Tests() {
   const navigate = useNavigate();
@@ -125,10 +125,15 @@ function Tests() {
 
   const styles = {
     page: {
-      padding: '2rem',
-      maxWidth: '800px',
+      padding: 'var(--mobile-padding)',
+      paddingBottom: 'calc(var(--mobile-padding) + 400px)',
+      maxWidth: '100%',
       margin: '0 auto',
       paddingTop: '100px',
+      width: '100%',
+      boxSizing: 'border-box',
+      overflowX: 'hidden',
+      position: 'relative',
     },
     cardsContainer: {
       display: 'flex',
@@ -136,6 +141,7 @@ function Tests() {
       gap: '2rem',
       alignItems: 'center',
       marginTop: '2rem',
+      marginBottom: '0',
     },
     card: {
       backgroundColor: 'white',
@@ -250,7 +256,6 @@ function Tests() {
 
   return (
     <div style={styles.page}>
-      <TranslateWidget />
       <h1 style={styles.mainTitle}><TranslatedText text="Language Tests" /></h1>
       <div style={styles.cardsContainer}>
         <div style={styles.overallScoreCard}>
@@ -273,7 +278,9 @@ function Tests() {
             <h2 style={styles.title}><TranslatedText text="English Tests" /></h2>
             <button 
               style={styles.button}
-              onClick={() => navigate('/english-tests')}
+              onClick={() => { 
+                navigate('/english-tests');
+              }}
             >
               <TranslatedText text="Start Test" />
             </button>
@@ -288,12 +295,17 @@ function Tests() {
             {renderStars(Math.round((readingScores.bestScore + writingScores.bestScore + listeningScores.bestScore) / 2.3))}
           </div>
         </div>
-        <div style={styles.card}>
+        <div style={{
+          ...styles.card,
+          marginBottom: '100px'
+        }}>
           <div style={styles.header}>
             <h2 style={styles.title}><TranslatedText text="Dutch Tests" /></h2>
             <button 
               style={styles.button}
-              onClick={() => navigate('/dutch-tests')}
+              onClick={() => { 
+                navigate('/dutch-tests');
+              }}
             >
               <TranslatedText text="Start Test" />
             </button>

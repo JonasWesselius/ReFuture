@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './AuthStatus.css';
 import './AuthButtons.css';
 import { useAuth } from '../context/AuthContext';
+import { TranslateWidget } from '../pages/translate';
 
 function AuthStatus() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function AuthStatus() {
 
   return (
     <div className="auth-status-top-right auth-buttons">
+      <TranslateWidget />
       <div className="user-icon" onClick={toggleModal}>
         <img src={user ? '/user.png' : '/user-question.jpeg'} alt="User Icon" style={{ width: '40px', height: '40px' }} />
       </div>

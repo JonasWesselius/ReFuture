@@ -8,9 +8,9 @@ function EnglishReading() {
   const { updateScore } = useTestScores();
   const { isAuthenticated } = useAuth();
   const [answers, setAnswers] = useState({
-    multipleChoice: Array(5).fill(''),
-    trueFalse: Array(5).fill(''),
-    gapFill: Array(5).fill('')
+    task1: Array(3).fill(''),
+    task2: Array(3).fill(''),
+    task3: Array(3).fill('')
   });
 
   const correctAnswers = {
@@ -67,12 +67,12 @@ function EnglishReading() {
       updateScore('englishReading', newScore);
     } else {
       // If not authenticated, store both current and best scores in localStorage
-      const currentBestScore = parseInt(localStorage.getItem('englishReadingBestScore') || '0');
-      localStorage.setItem('englishReadingLastScore', newScore.toString());
+      const currentBestScore = parseInt(localStorage.getItem('readingBestScore') || '0');
+      localStorage.setItem('readingLastScore', newScore.toString());
       
       // Update best score if new score is higher
       if (newScore > currentBestScore) {
-        localStorage.setItem('englishReadingBestScore', newScore.toString());
+        localStorage.setItem('readingBestScore', newScore.toString());
       }
     }
 

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTestScores } from '../context/TestScoreContext';
-import TranslateWidget, { TranslatedText } from './translate';
-import './signup.css'; 
+import { TranslateWidget, TranslatedText } from './translate';
+import './signup.css';
 
 function Login() {
   const [form, setForm] = useState({
@@ -46,6 +46,9 @@ function Login() {
       }
       
       login(data.token, data.user);
+
+      // Clear posts from localStorage on successful login
+      localStorage.removeItem('refuturePosts');
 
       // Force a full page reload when navigating to profile
       window.location.href = '/profile';
@@ -94,14 +97,14 @@ function Login() {
         </button>
       </form>
       <div style={{ textAlign: 'center', marginTop: '8px' }}>
-        <span><TranslatedText text="Don't have an account? " /></span>
+        <span>Don't have an account? </span>
         <button 
           type="button" 
           onClick={goToSignup} 
           style={{ color: '#5fd3a6', background: 'none', border: 'none', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', fontSize: '1rem' }} 
           disabled={loading}
         >
-          <TranslatedText text="Create here" />
+          Create here
         </button>
       </div>
     </div>

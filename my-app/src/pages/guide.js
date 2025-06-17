@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProgressGuide from './progressguide';
 import GuideCard from './guidecard';
-import TranslateWidget, { TranslatedText } from './translate';
+import { TranslatedText, TranslateWidget } from './translate';
 
 const Guide = () => {
   const defaultCards = [
@@ -15,7 +15,7 @@ const Guide = () => {
       description4: 'The following asylum seekers cannot register in the BRP: Dublin claimants (people that want to go to a different country) - asylum seekers who come from a safe country of origin - foreigners who are already entitled to protection in another EU Member State - asylum seekers whose identity has not been established.',
       description5: 'To apply for a BSN, you need to visit the local municipality where you will be living. You will need to bring valid identification and proof of your residence in the Netherlands.',
       description6: 'Once you have your BSN, you can use it for various official processes, such as opening a bank account, applying for a residence permit, and more.',
-      description7: 'When you are done with this step, please mark it as done in the top right and move on to the next step.',
+      description7: 'When you are done with this step, please mark it as done in the top right and move on to the next step.'
     },
     {
       title: 'Getting a Bank Account',
@@ -23,7 +23,7 @@ const Guide = () => {
       previewText: 'A bank account is essential to have, because you have to have one to receive your salary.',
       description: 'A Dutch bank account is essential for receiving salary, paying bills, and managing daily expenses in the Netherlands.',
       description2: 'You can open a bank account at most banks in the Netherlands, such as ABN AMRO, ING, Rabobank, and others.',
-      description3: 'To open a bank account you will have to visit a bank in person or go to their website to start the process online. Which bank you choose may depend on your personal preferences, such as fees, services, and convenience. Further information can be found on the bank’s website.',
+      description3: 'To open a bank account you will have to visit a bank in person or go to their website to start the process online. Which bank you choose may depend on your personal preferences, such as fees, services, and convenience. Further information can be found on the bank\'s website.',
       description4: 'To open a bank account, you will typically need to provide your BSN, proof of identity (such as a passport or residence permit), and proof of address (such as a rental contract or utility bill).',
       description5: 'Some banks may also require additional documentation, such as proof of employment or income.',
       description6: 'Once you have opened a bank account, you will receive a debit card and online banking access, which will allow you to manage your finances conveniently.',
@@ -115,7 +115,7 @@ const Guide = () => {
 const styles = {
   page: {
     padding: '1rem',
-    paddingBottom: '5rem',
+    paddingBottom: '80px',
     fontFamily: 'Arial, sans-serif',
     maxWidth: '500px',
     margin: 'auto',

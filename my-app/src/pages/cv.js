@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import TranslateWidget, { TranslatedText } from './translate';
+import { TranslatedText, TranslateWidget } from './translate';
 import './cv.css';
 
 function CV() {
@@ -82,21 +82,6 @@ function CV() {
     const dateB = new Date(b.createdDate);
     return dateA - dateB;  // Changed to put newest first
   }).reverse();  // Reverse to put newest at top
-
-  const getTemplatePreview = (templateId) => {
-    switch (templateId) {
-      case 1:
-        return '/templates/modern.png';
-      case 2:
-        return '/templates/creative.png';
-      case 3:
-        return '/templates/minimalist.png';
-      case 4:
-        return '/templates/traditional.png';
-      default:
-        return '/templates/modern.png';
-    }
-  };
 
   return (
     <div className="cv-page">

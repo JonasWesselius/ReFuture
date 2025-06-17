@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TranslateWidget, { TranslatedText } from './translate';
+import { TranslatedText, TranslateWidget } from './translate';
 import './signup.css';
 import { useAuth } from '../context/AuthContext';
 
@@ -14,6 +14,7 @@ function Signup() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const navigate = useNavigate();
   const { login } = useAuth(); // Use the login function from AuthContext
@@ -132,43 +133,25 @@ function Signup() {
         <div className="terms-checkbox">
           <input
             type="checkbox"
-            name="terms"
             id="terms"
-            checked={form.terms}
-            onChange={handleChange}
+            checked={termsAccepted}
+            onChange={(e) => setTermsAccepted(e.target.checked)}
             required
-            disabled={loading}
           />
           <label htmlFor="terms">
-            <TranslatedText text="By checking this box, you agree to our " />
-            <a href="#"><TranslatedText text="Terms and Conditions" /></a>
-            <TranslatedText text=" and " />
-            <a href="#"><TranslatedText text="Privacy Policy" /></a>
-            <TranslatedText text=". Please read them carefully before proceeding. Your use of this service constitutes acceptance of these terms." />
+            By checking this box, you agree to our <span onClick={() => alert('Navigate to Terms and Conditions')} style={{ color: '#5fd3a6', cursor: 'pointer', textDecoration: 'underline' }}>Terms and Conditions</span> and <span onClick={() => alert('Navigate to Privacy Policy')} style={{ color: '#5fd3a6', cursor: 'pointer', textDecoration: 'underline' }}>Privacy Policy</span>. Please read them carefully before proceeding. Your use of this service constitutes acceptance of these terms.
           </label>
         </div>
-        <button 
-          type="submit" 
-          className="create-account-btn"
-          disabled={loading}
-        >
-          <TranslatedText text={loading ? 'Creating Account...' : 'Create account'} />
+        <button type="submit" className="create-account-btn" disabled={loading}>
+          {loading ? 'Creating Account...' : 'Create account'}
         </button>
       </form>
       <div style={{ textAlign: 'center', marginTop: '8px' }}>
-        <span><TranslatedText text="Already have an account? " /></span>
-        <button
-          type="button"
-          onClick={goToLogin}
-          style={{
-            color: '#5fd3a6',
-            background: 'none',
-            border: 'none',
-            fontWeight: 700,
-            cursor: 'pointer',
-            textDecoration: 'underline',
-            fontSize: '1rem'
-          }}
+        <span>Already have an account? </span>
+        <button 
+          type="button" 
+          onClick={goToLogin} 
+          style={{ color: '#5fd3a6', background: 'none', border: 'none', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', fontSize: '1rem' }} 
           disabled={loading}
         >
           <TranslatedText text="Log in here" />

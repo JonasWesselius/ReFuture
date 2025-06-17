@@ -72,12 +72,12 @@ function EnglishListening() {
       updateScore('englishListening', newScore);
     } else {
       // If not authenticated, store both current and best scores in localStorage
-      const currentBestScore = parseInt(localStorage.getItem('listeningBestScore') || '0');
-      localStorage.setItem('listeningLastScore', newScore.toString());
-      
+    const currentBestScore = parseInt(localStorage.getItem('listeningBestScore') || '0');
+    localStorage.setItem('listeningLastScore', newScore.toString());
+    
       // Update best score if new score is higher
-      if (newScore > currentBestScore) {
-        localStorage.setItem('listeningBestScore', newScore.toString());
+    if (newScore > currentBestScore) {
+      localStorage.setItem('listeningBestScore', newScore.toString());
       }
     }
 
