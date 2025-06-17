@@ -182,8 +182,13 @@ export const TranslateWidget = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <div style={{ position: 'relative' }}>
-      <button
+    <div style={{ 
+      position: 'fixed', 
+      top: '20px', 
+      right: '80px', 
+      zIndex: 1001 
+    }}>
+      <button 
         onClick={() => setShowDropdown(!showDropdown)}
         style={{
           position: 'fixed',

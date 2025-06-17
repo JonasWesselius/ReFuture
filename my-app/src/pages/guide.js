@@ -119,6 +119,7 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     maxWidth: '500px',
     margin: 'auto',
+    paddingTop: '100px',
   },
   header: {
     fontSize: '1.5rem',
