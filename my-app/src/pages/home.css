@@ -224,5 +224,42 @@
     padding: var(--desktop-padding);
     padding-bottom: calc(var(--desktop-padding) + 120px);
   }
-} 
+}
 
+/* Modal overlay for profile on homepage */
+.profile-overlay-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.profile-overlay-content {
+  max-width: 600px;
+  width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  position: relative;
+  padding-bottom: 32px;
+}
+
+@media (max-width: 700px) {
+  .profile-overlay-content {
+    max-width: 98vw;
+    padding: 0;
+    border-radius: 0;
+  }
+}
+
+.post-author-link {
+  cursor: pointer;
+} 

@@ -67,12 +67,12 @@ function DutchReading() {
       updateScore('dutchReading', newScore);
     } else {
       // If not authenticated, store both current and best scores in localStorage
-      const currentBestScore = parseInt(localStorage.getItem('dutchReadingBestScore') || '0');
+    const currentBestScore = parseInt(localStorage.getItem('dutchReadingBestScore') || '0');
       localStorage.setItem('dutchReadingLastScore', newScore.toString());
-      
+
       // Update best score if new score is higher
-      if (newScore > currentBestScore) {
-        localStorage.setItem('dutchReadingBestScore', newScore.toString());
+    if (newScore > currentBestScore) {
+      localStorage.setItem('dutchReadingBestScore', newScore.toString());
       }
     }
 
@@ -85,17 +85,25 @@ function DutchReading() {
       padding: '2rem',
       maxWidth: '800px',
       margin: '0 auto',
+      marginTop: '100px',
+      minHeight: 'calc(100vh - 100px)',
+      position: 'relative',
+      zIndex: 1,
     },
     mainTitle: {
       textAlign: 'center',
       marginBottom: '2rem',
       color: '#333',
+      position: 'relative',
+      zIndex: 2,
     },
     header: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: '2rem',
+      position: 'relative',
+      zIndex: 2,
     },
     title: {
       fontSize: '1.5rem',
@@ -118,6 +126,8 @@ function DutchReading() {
       padding: '2rem',
       boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
       marginBottom: '2rem',
+      position: 'relative',
+      zIndex: 2,
     },
     questionContainer: {
       marginBottom: '1.5rem',
@@ -230,12 +240,13 @@ function DutchReading() {
       border: 'none',
       borderRadius: '4px',
       cursor: 'pointer',
-      fontSize: '1.1rem',
-      marginTop: '2rem',
+      fontSize: '1rem',
       display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto',
+      margin: '2rem auto',
+      width: '200px',
       transition: 'background-color 0.3s',
+      position: 'relative',
+      zIndex: 2,
     },
   };
 
