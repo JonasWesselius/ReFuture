@@ -14,7 +14,6 @@ function Signup() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const navigate = useNavigate();
   const { login } = useAuth(); // Use the login function from AuthContext
@@ -134,8 +133,9 @@ function Signup() {
           <input
             type="checkbox"
             id="terms"
-            checked={termsAccepted}
-            onChange={(e) => setTermsAccepted(e.target.checked)}
+            name="terms"
+            checked={form.terms}
+            onChange={handleChange}
             required
           />
           <label htmlFor="terms">
