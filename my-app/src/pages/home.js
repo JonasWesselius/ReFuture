@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TranslatedText, useTranslation, translateText } from './translate';
 import './home.css';
+import { useAuth } from '../context/AuthContext';
 
 function CreatePostOverlay({ isOpen, onClose, onSubmit }) {
   const [content, setContent] = useState('');
@@ -304,6 +305,23 @@ function Home() {
   }, [posts]);
 
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [showComments, setShowComments] = useState({});
+  const [commentText, setCommentText] = useState({});
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [postToShare, setPostToShare] = useState(null);
+  const [showRepostModal, setShowRepostModal] = useState(false);
+  const [postToRepost, setPostToRepost] = useState(null);
+  const [repostComment, setRepostComment] = useState('');
+  const [showImagePreview, setShowImagePreview] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+  const { user } = useAuth();
 
   const handlePostSubmit = (content, image) => {
     const post = {
@@ -388,54 +406,58 @@ function Home() {
   };
 
   return (
-    <div style={{
-      ...styles.page,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      width: '100%',
-      maxWidth: '100%',
-      margin: '0 auto',
-      padding: 'var(--mobile-padding)',
-      paddingBottom: 'calc(var(--mobile-padding) + 800px)',
-      boxSizing: 'border-box'
-    }}>
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: '600px',
-        margin: '0 auto'
-      }}>
-        {/* The clickable input bar for creating a post */}
-        <div 
-          style={styles.inputBar}
-          onClick={() => setIsCreatePostOpen(true)}
-        >
-          <div style={styles.inputAvatar}>👤</div>
-          <div style={styles.inputBox}>
-            Start by writing your post..
+    <div className="home-page">
+      <div className="post-bar">
+        <div className="post-bar-content" onClick={() => setIsCreatePostOpen(true)}>
+          <div className="post-bar-avatar">👤</div>
+          <div className="post-bar-input">
+            <TranslatedText text="What's on your mind?" />
           </div>
         </div>
+      </div>
 
-        {/* Create Post Overlay */}
+      {isCreatePostOpen && (
         <CreatePostOverlay
           isOpen={isCreatePostOpen}
-          onClose={() => setIsCreatePostOpen(false)}
+          onClose={() => {
+            setIsCreatePostOpen(false);
+            setSelectedImage(null);
+          }}
           onSubmit={handlePostSubmit}
         />
+      )}
 
-        {/* Post Cards */}
-        {posts.map((post, index) => (
-          <Card
-            key={post.id}
-            post={post}
-            onLike={handleLike}
-            onComment={handleComment}
-            onRepost={handleRepost}
-            onShare={handleShare}
-            isLast={index === posts.length - 1}
-          />
-        ))}
+      <div style={{
+        ...styles.page,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+        maxWidth: '100%',
+        margin: '0 auto',
+        padding: 'var(--mobile-padding)',
+        paddingBottom: 'calc(var(--mobile-padding) + 800px)',
+        boxSizing: 'border-box'
+      }}>
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '600px',
+          margin: '0 auto'
+        }}>
+          {/* Post Cards */}
+          {posts.map((post, index) => (
+            <Card
+              key={post.id}
+              post={post}
+              onLike={handleLike}
+              onComment={handleComment}
+              onRepost={handleRepost}
+              onShare={handleShare}
+              isLast={index === posts.length - 1}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
