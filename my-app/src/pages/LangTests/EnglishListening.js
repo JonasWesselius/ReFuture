@@ -548,7 +548,7 @@ function EnglishListening() {
         style={styles.nextButton} 
         onClick={handleSubmitAndNext}
       >
-        Finish
+        Next
       </button>
     </div>
   );

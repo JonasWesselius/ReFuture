@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TranslatedText, useTranslation, translateText } from './translate';
 import './home.css';
-import './ProfilePage.css';
 
 function CreatePostOverlay({ isOpen, onClose, onSubmit }) {
   const [content, setContent] = useState('');
@@ -95,7 +94,7 @@ function CreatePostOverlay({ isOpen, onClose, onSubmit }) {
             placeholder={translatedPlaceholder}
             style={styles.postInput}
           />
-          
+           
           {selectedImageName && (
             <div style={styles.imageAttachedIndicator}>
               📷 {getDisplayImageName(selectedImageName)}
@@ -155,130 +154,7 @@ function CreatePostOverlay({ isOpen, onClose, onSubmit }) {
   );
 }
 
-function ProfileOverlay({ user, onClose }) {
-  // Mock profile data based on user
-  const mockProfiles = {
-    'Yamil Angura': {
-      name: 'Yamil Angura',
-      countryOfOrigin: 'Colombia',
-      location: { city: 'Amsterdam', region: 'Noord-Holland', country: 'Netherlands' },
-      connections: 2321,
-      experience: [
-        { title: 'Software Engineer', company: 'Tech BV', startDate: '2021-01-01', endDate: null, location: 'Amsterdam', type: 'Full-time' }
-      ],
-      languages: [
-        { name: 'Spanish', proficiency: 'Native', isLearning: false },
-        { name: 'Dutch', proficiency: 'Intermediate', isLearning: true }
-      ],
-      testScores: [
-        { language: 'Dutch', score: 85, maxScore: 100, stars: 4, date: '2024-05-01' }
-      ],
-      cvs: [
-        { name: 'Modern CV', description: 'A modern CV template', updatedAt: '2024-05-10' }
-      ]
-    },
-    'Piet Jan': {
-      name: 'Piet Jan',
-      countryOfOrigin: 'Netherlands',
-      location: { city: 'Rotterdam', region: 'Zuid-Holland', country: 'Netherlands' },
-      connections: 523,
-      experience: [
-        { title: 'Language Partner', company: 'Language Exchange', startDate: '2022-03-01', endDate: null, location: 'Rotterdam', type: 'Part-time' }
-      ],
-      languages: [
-        { name: 'Dutch', proficiency: 'Native', isLearning: false },
-        { name: 'English', proficiency: 'Advanced', isLearning: false }
-      ],
-      testScores: [
-        { language: 'English', score: 92, maxScore: 100, stars: 5, date: '2024-04-15' }
-      ],
-      cvs: [
-        { name: 'Traditional CV', description: 'A traditional CV template', updatedAt: '2024-04-20' }
-      ]
-    },
-    'Erik': {
-      name: 'Erik',
-      countryOfOrigin: 'Netherlands',
-      location: { city: 'Utrecht', region: 'Utrecht', country: 'Netherlands' },
-      connections: 4741,
-      experience: [
-        { title: 'CV Workshop Leader', company: 'Job Center', startDate: '2020-09-01', endDate: null, location: 'Utrecht', type: 'Full-time' }
-      ],
-      languages: [
-        { name: 'Dutch', proficiency: 'Native', isLearning: false },
-        { name: 'English', proficiency: 'Fluent', isLearning: false }
-      ],
-      testScores: [
-        { language: 'Dutch', score: 98, maxScore: 100, stars: 5, date: '2024-03-10' }
-      ],
-      cvs: [
-        { name: 'Minimalistic CV', description: 'A minimalistic CV template', updatedAt: '2024-03-15' }
-      ]
-    }
-  };
-  const profile = mockProfiles[user] || mockProfiles['Yamil Angura'];
-  return (
-    <div className="profile-overlay-modal" onClick={onClose}>
-      <div className="profile-page profile-overlay-content" onClick={e => e.stopPropagation()}>
-        <header className="profile-header">
-          <button onClick={onClose} className="back-button">×</button>
-          <span className="profile-title">Profile</span>
-        </header>
-        <div className="profile-content">
-          <div className="profile-info-box">
-            <div className="profile-icon-placeholder" style={{ backgroundImage: 'url(/user.png)' }}></div>
-            <h2>{profile.name}</h2>
-            <p>Country of origin: {profile.countryOfOrigin}</p>
-            <p>{profile.location.city}, {profile.location.region}, {profile.location.country}</p>
-            <p>{profile.connections} Connections</p>
-          </div>
-          <div className="profile-section">
-            <div className="section-header"><h3>Experience</h3></div>
-            {profile.experience.map((exp, i) => (
-              <div key={i} className="experience-item">
-                <p>{exp.title}</p>
-                <p>{exp.company}</p>
-                <p>{new Date(exp.startDate).toLocaleDateString()} - {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : 'Present'}</p>
-                <p>{exp.location}</p>
-                <p>{exp.type}</p>
-              </div>
-            ))}
-          </div>
-          <div className="profile-section">
-            <div className="section-header"><h3>Languages</h3></div>
-            {profile.languages.map((lang, i) => (
-              <div key={i} className="language-item">
-                <p>{lang.name} {lang.isLearning ? '(Learning)' : ''}</p>
-                <p>Proficiency: {lang.proficiency}</p>
-              </div>
-            ))}
-          </div>
-          <div className="profile-section">
-            <div className="section-header"><h3>Test Scores</h3></div>
-            {profile.testScores.map((score, i) => (
-              <div key={i} className="test-score-item">
-                <p>{score.language}: {score.score}/{score.maxScore} ({'⭐'.repeat(score.stars)}{'☆'.repeat(5-score.stars)})</p>
-                <p>Date: {new Date(score.date).toLocaleDateString()}</p>
-              </div>
-            ))}
-          </div>
-          <div className="profile-section">
-            <div className="section-header"><h3>CVs</h3></div>
-            {profile.cvs.map((cv, i) => (
-              <div key={i} className="cv-item">
-                <p>{cv.name}</p>
-                <p>{cv.description}</p>
-                <p>Last updated: {new Date(cv.updatedAt).toLocaleDateString()}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Card({ post, onLike, onComment, onRepost, onShare, isLast, onUserClick }) {
+function Card({ post, onLike, onComment, onRepost, onShare, isLast }) {
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
 
@@ -292,7 +168,7 @@ function Card({ post, onLike, onComment, onRepost, onShare, isLast, onUserClick 
   return (
     <div style={{
       ...styles.card,
-      marginBottom: '30px'
+      marginBottom: isLast ? '100px' : '20px'
     }}>
       {post.repostedFrom && (
         <div style={styles.repostHeader}>
@@ -302,13 +178,7 @@ function Card({ post, onLike, onComment, onRepost, onShare, isLast, onUserClick 
       <div style={styles.postHeader}>
         <div style={styles.avatar}>{post.author.charAt(0)}</div>
         <div>
-          <div
-            style={styles.name}
-            onClick={post.author !== 'You' ? () => onUserClick(post.author) : undefined}
-            className={post.author !== 'You' ? 'post-author-link' : ''}
-          >
-            {post.author}
-          </div>
+          <div style={styles.name}>{post.author}</div>
           <div style={styles.meta}>{post.followers} Followers • {post.timeAgo} • {post.edited ? 'Edited' : ''}</div>
         </div>
       </div>
@@ -317,9 +187,9 @@ function Card({ post, onLike, onComment, onRepost, onShare, isLast, onUserClick 
         <TranslatedText text={post.content} />
       </div>
 
-        {post.image && (
-          <img src={post.image} alt="Post" style={styles.postImage} />
-        )}
+      {post.image && (
+        <img src={post.image} alt="Post" style={styles.postImage} />
+      )}
 
       <div style={styles.postActions}>
         <button 
@@ -434,7 +304,6 @@ function Home() {
   }, [posts]);
 
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
-  const [profileUser, setProfileUser] = useState(null);
 
   const handlePostSubmit = (content, image) => {
     const post = {
@@ -518,12 +387,6 @@ function Home() {
     }
   };
 
-  // Only open overlay for other users
-  const handleUserClick = (author) => {
-    if (author === 'You') return;
-    setProfileUser(author);
-  };
-
   return (
     <div style={{
       ...styles.page,
@@ -534,7 +397,7 @@ function Home() {
       maxWidth: '100%',
       margin: '0 auto',
       padding: 'var(--mobile-padding)',
-      paddingBottom: 'calc(var(--mobile-padding) + 100px)',
+      paddingBottom: 'calc(var(--mobile-padding) + 800px)',
       boxSizing: 'border-box'
     }}>
       <div style={{
@@ -544,38 +407,36 @@ function Home() {
         margin: '0 auto'
       }}>
         {/* The clickable input bar for creating a post */}
-      <div 
-        style={styles.inputBar}
-        onClick={() => setIsCreatePostOpen(true)}
-      >
-        <div style={styles.inputAvatar}>👤</div>
-        <div style={styles.inputBox}>
+        <div 
+          style={styles.inputBar}
+          onClick={() => setIsCreatePostOpen(true)}
+        >
+          <div style={styles.inputAvatar}>👤</div>
+          <div style={styles.inputBox}>
             Start by writing your post..
+          </div>
         </div>
-      </div>
 
-      {/* Create Post Overlay */}
-      <CreatePostOverlay
-        isOpen={isCreatePostOpen}
-        onClose={() => setIsCreatePostOpen(false)}
-        onSubmit={handlePostSubmit}
-      />
-
-      {/* Post Cards */}
-        {posts.map((post, index) => (
-        <Card
-          key={post.id}
-          post={post}
-          onLike={handleLike}
-          onComment={handleComment}
-          onRepost={handleRepost}
-          onShare={handleShare}
-          isLast={index === posts.length - 1}
-          onUserClick={handleUserClick}
+        {/* Create Post Overlay */}
+        <CreatePostOverlay
+          isOpen={isCreatePostOpen}
+          onClose={() => setIsCreatePostOpen(false)}
+          onSubmit={handlePostSubmit}
         />
-      ))}
+
+        {/* Post Cards */}
+        {posts.map((post, index) => (
+          <Card
+            key={post.id}
+            post={post}
+            onLike={handleLike}
+            onComment={handleComment}
+            onRepost={handleRepost}
+            onShare={handleShare}
+            isLast={index === posts.length - 1}
+          />
+        ))}
       </div>
-      {profileUser && <ProfileOverlay user={profileUser} onClose={() => setProfileUser(null)} />}
     </div>
   );
 }
@@ -583,7 +444,7 @@ function Home() {
 const styles = {
   page: {
     padding: 'var(--mobile-padding)',
-    paddingBottom: 'calc(var(--mobile-padding) + 100px)',
+    paddingBottom: 'calc(var(--mobile-padding) + 800px)',
     fontFamily: 'sans-serif',
     minHeight: '100vh',
     backgroundColor: 'transparent',
@@ -603,7 +464,7 @@ const styles = {
     boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
     width: '100%',
     maxWidth: '100%',
-    margin: '30px auto 30px auto',
+    margin: '0 auto 30px auto',
     cursor: 'pointer',
   },
   inputAvatar: {
@@ -924,7 +785,7 @@ const styles = {
     padding: '0',
   },
   '&:last-child': {
-    marginBottom: '20px',
+    marginBottom: '100px',
   },
 };
 

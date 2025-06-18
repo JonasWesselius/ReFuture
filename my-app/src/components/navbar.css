@@ -1,5 +1,4 @@
-.navbar,
-.navbar-spacer {
+.navbar {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -9,15 +8,7 @@
   background-color: #fff;
   padding: 0.5rem 0.5rem 0 0.5rem;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar {
-  z-index: 1000;
-}
-
-.navbar-spacer {
-  z-index: 1;
-  pointer-events: none;
+  z-index: 999;
 }
 
 .nav-links {
@@ -64,11 +55,6 @@
   white-space: nowrap;
 }
 
-/* Add padding to the bottom of the main content to account for both navbars */
-body {
-  padding-bottom: 120px;
-}
-
 /* Media Queries */
 @media (max-width: 360px) {
   .nav-text {
@@ -86,8 +72,7 @@ body {
 }
 
 @media (min-width: 768px) {
-  .navbar,
-  .navbar-spacer {
+  .navbar {
     padding: 0.75rem;
   }
   
