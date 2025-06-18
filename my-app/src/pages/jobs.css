@@ -1,12 +1,9 @@
 .jobs-page {
-  padding: 1rem;
-  padding-bottom: 400px; /* Significantly increased to ensure all content is above navbar */
-  max-width: 1400px;
+  padding: 2rem;
+  padding-bottom: 70px;
+  max-width: 1200px;
   margin: 0 auto;
-  width: 100%;
-  min-height: 100vh;
-  box-sizing: border-box;
-  padding-top: 100px;
+  padding-top: 60px;
 }
 
 .search-section {

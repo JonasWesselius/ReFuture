@@ -129,7 +129,7 @@ function Tests() {
       paddingBottom: 'calc(var(--mobile-padding) + 400px)',
       maxWidth: '100%',
       margin: '0 auto',
-      paddingTop: '100px',
+      paddingTop: '60px',
       width: '100%',
       boxSizing: 'border-box',
       overflowX: 'hidden',
