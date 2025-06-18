@@ -178,7 +178,7 @@ export function TranslatedText({ text }) {
 }
 
 export const TranslateWidget = () => {
-  const { language, setLanguage } = useTranslation();
+  const { language, changeLanguage } = useTranslation();
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
@@ -217,7 +217,7 @@ export const TranslateWidget = () => {
             <div
               key={code}
               onClick={() => {
-                setLanguage(code);
+                changeLanguage(code);
                 setShowDropdown(false);
               }}
               style={{
