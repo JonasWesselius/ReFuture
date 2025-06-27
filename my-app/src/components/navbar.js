@@ -3,6 +3,18 @@ import { NavLink } from 'react-router-dom';
 import './navbar.css';
 import { TranslatedText } from '../pages/translate';
 
+const styles = {
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 8,
+    verticalAlign: 'middle',
+  },
+  linkText: {
+    verticalAlign: 'middle',
+  },
+};
+
 const Navbar = () => {
   const navItems = [
     { id: 'home', label: <TranslatedText text="Home" />, path: '/', icon: '/homeicon.png', activeIcon: '/homeicon-blue.png' },
@@ -25,10 +37,10 @@ const Navbar = () => {
                 <>
                   <img
                     src={isActive ? item.activeIcon : item.icon}
-                    alt={`${item.label} icon`}
-                    className="nav-icon"
+                    style={styles.icon}
+                    alt=""
                   />
-                  <span className="nav-text">{item.label}</span>
+                  <span style={styles.linkText}>{item.label}</span>
                 </>
               )}
             </NavLink>
