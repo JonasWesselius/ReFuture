@@ -5,7 +5,7 @@ import { LanguageProvider, TranslateWidget } from "./pages/translate";
 import { TestScoreProvider } from "./context/TestScoreContext";
 import MainContentWrapper from "./components/MainContentWrapper";
 
-function App() {
+function Home() {
   return (
     <LanguageProvider>
       <TestScoreProvider>
@@ -15,6 +15,17 @@ function App() {
       <TranslateWidget />
       </TestScoreProvider>
     </LanguageProvider>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/guide" element={<Guide />} />
+      </Routes>
+    </Router>
   );
 }
 
