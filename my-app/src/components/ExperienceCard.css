@@ -1,0 +1,36 @@
+.experience-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 16px;
+    margin: 16px;
+    position: relative;
+}
+  
+.card-icons {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+}
+  
+.edit-icon, .add-icon {
+    cursor: pointer;
+    font-size: 20px;
+}
+  
+.card-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+  
+.job-title {
+    font-weight: bold;
+}
+  
+.company, .dates, .location, .work-type {
+    font-size: 14px;
+    color: #666;
+}
