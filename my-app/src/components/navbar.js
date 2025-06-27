@@ -1,54 +1,17 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import './navbar.css';
-import { TranslatedText } from '../pages/translate';
+import { NavLink } from "react-router-dom";
+import "./Navbar.css";
 
-const styles = {
-  icon: {
-    width: 24,
-    height: 24,
-    marginRight: 8,
-    verticalAlign: 'middle',
-  },
-  linkText: {
-    verticalAlign: 'middle',
-  },
-};
-
-const Navbar = () => {
-  const navItems = [
-    { id: 'home', label: <TranslatedText text="Home" />, path: '/', icon: '/homeicon.png', activeIcon: '/homeicon-blue.png' },
-    { id: 'cv', label: <TranslatedText text="My CV" />, path: '/cv', icon: '/texticon.png', activeIcon: '/texticon-blue.png' },
-    { id: 'jobs', label: <TranslatedText text="Jobs" />, path: '/jobs', icon: '/briefcaseicon.png', activeIcon: '/briefcaseicon-blue.png' },
-    { id: 'guide', label: <TranslatedText text="Guide" />, path: '/guide', icon: '/flagicon.png', activeIcon: '/flagicon-blue.png' },
-    { id: 'tests', label: <TranslatedText text="Tests" />, path: '/tests', icon: '/bookicon.png', activeIcon: '/bookicon-blue.png' },
-  ];
-
+function Navbar() {
   return (
-    <nav className="navbar">
-      <ul className="nav-links">
-        {navItems.map((item) => (
-          <li key={item.id} className="nav-item">
-            <NavLink
-              to={item.path}
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-            >
-              {({ isActive }) => (
-                <>
-                  <img
-                    src={isActive ? item.activeIcon : item.icon}
-                    style={styles.icon}
-                    alt=""
-                  />
-                  <span style={styles.linkText}>{item.label}</span>
-                </>
-              )}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+    <nav className="bottom-nav">
+      <NavLink to="/" className="nav-link"><span>Home</span></NavLink>
+      <NavLink to="/cv" className="nav-link"><span>My CV</span></NavLink>
+      <NavLink to="/jobs" className="nav-link"><span>Jobs</span></NavLink>
+      <NavLink to="/guide" className="nav-link"><span>Guide</span></NavLink>
+      <NavLink to="/test" className="nav-link"><span>Tests</span></NavLink>
     </nav>
   );
-};
+}
 
 export default Navbar;
